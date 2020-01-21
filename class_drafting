@@ -1,3 +1,4 @@
+
 Classes:
 
 
@@ -5,14 +6,15 @@ Game(int n, int m)
 
 	vector[][] gameBoard
 	boolean playerOneTurn
-	int m
-	int n
-	
+	int m (>1 && <= n) 
+	int n (>= 3 && <= 10)  (grid size = n*n) 
+	int numDisks
 	
 	void generateBoard(int n) 
 	void printBoard() - 2 for loops to append the board characters to a string buffer		
 	boolean gameOver() - searches for a horizontal, vertical, or diagonal line
-	void addToBoard(int) - int of the column that was decided by the player		
+			check if numDisks == n * n
+	void addToBoard(int) - int of the column that was decided by the player - increment number of disks		
 	
 
 Human_Player(boolean isTurn)
