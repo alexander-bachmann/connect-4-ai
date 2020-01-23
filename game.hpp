@@ -22,7 +22,7 @@ class Game
     int m; //number on consectutive disks needed to achieve victory
     int num_disks; //number of disks that have been played (used to stop game if no winner)
     bool player_one_turn; //rotation of turns
-    std::vector<std::vector<char>> game_board;
+    std::vector<std::vector<std::string>> game_board;
 };
 
 #endif

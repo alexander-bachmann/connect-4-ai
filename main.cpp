@@ -7,6 +7,8 @@ int main()
   Game game = Game(5, 3); //5x5, connect 3
   game.generate_board();
 
+  game.print_board();
+
   return 0;
 }
 

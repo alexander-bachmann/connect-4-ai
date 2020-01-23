@@ -27,15 +27,56 @@ void Game::generate_board()
   {
     for(int j = 0; j < this->n; ++j)
     {
-      this->game_board[i][j] = '_';
-      std::cout << this->game_board[i][j] << std::endl;
+      this->game_board[i][j] = "_";
     }
   }
 }
 
 void Game::print_board()
 {
+  /*
+  +---+---+---+---+---+
+  | _ | _ | _ | _ | _ |
+  +---+---+---+---+---+
+  | _ | _ | _ | _ | _ |
+  +---+---+---+---+---+
+  | _ | _ | _ | _ | _ |
+  +---+---+---+---+---+
+  | _ | _ | _ | _ | _ |
+  +---+---+---+---+---+
+  */
 
+  std::string board_state;
+
+  board_state.append("\n");
+
+  for(int i = 0; i < this->n; ++i)
+  {
+    for(int j = 0; j < this->n; ++j)
+    {
+      board_state.append("+---");
+    }
+    board_state.append("+");
+    board_state.append("\n");
+
+    for(int j = 0; j < this->n; ++j)
+    {
+      board_state.append("| ");
+      board_state.append(this->game_board[i][j]);
+      board_state.append(" ");
+    }
+    board_state.append("|");
+    board_state.append("\n");
+  }
+
+  for(int j = 0; j < this->n; ++j)
+  {
+    board_state.append("+---");
+  }
+  board_state.append("+");
+  board_state.append("\n");
+
+  std::cout << board_state << std::endl;
 }
 
 bool Game::game_over()
