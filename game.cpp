@@ -4,6 +4,7 @@ Game::Game(int n, int m)
 {
   this->n = n;
   this->m = m;
+  this->player_one_turn = true;
 
   /*
   validate: m = (>1 && <= n)
@@ -34,18 +35,6 @@ void Game::generate_board()
 
 void Game::print_board()
 {
-  /*
-  +---+---+---+---+---+
-  | _ | _ | _ | _ | _ |
-  +---+---+---+---+---+
-  | _ | _ | _ | _ | _ |
-  +---+---+---+---+---+
-  | _ | _ | _ | _ | _ |
-  +---+---+---+---+---+
-  | _ | _ | _ | _ | _ |
-  +---+---+---+---+---+
-  */
-
   std::string board_state;
 
   board_state.append("\n");
@@ -92,6 +81,25 @@ bool Game::game_over()
 void Game::add_disk_to_column(int j)
 {
   //place in bottom (highest i available in column j)
+
+  for(int i = this->n-1; i >= 0; --i)
+  {
+    if(this->game_board[i][j] == "_")
+    {
+      if(player_one_turn == true)
+      {
+        this->game_board[i][j] = "X";
+        break;
+      }
+      else
+      {
+        this->game_board[i][j] = "O";
+        break;
+      }
+    }
+  }
+
+  player_one_turn = !player_one_turn;
   this->num_disks++;
 }
 

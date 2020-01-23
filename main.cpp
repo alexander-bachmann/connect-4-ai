@@ -9,6 +9,14 @@ int main()
 
   game.print_board();
 
+  game.add_disk_to_column(0);
+  game.add_disk_to_column(0);
+  game.add_disk_to_column(1);
+  game.add_disk_to_column(2);
+  game.add_disk_to_column(2);
+
+  game.print_board();
+
   return 0;
 }
 
