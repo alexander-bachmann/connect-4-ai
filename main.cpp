@@ -19,6 +19,7 @@ int main()
     game.add_disk_to_column(col_num);
 
     game.print_board();
+    //game.print_int_board();
 
   } while(!game.game_over());
 
