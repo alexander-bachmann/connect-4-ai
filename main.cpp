@@ -9,13 +9,18 @@ int main()
 
   game.print_board();
 
-  game.add_disk_to_column(0);
-  game.add_disk_to_column(0);
-  game.add_disk_to_column(1);
-  game.add_disk_to_column(2);
-  game.add_disk_to_column(2);
+  int col_num;
 
-  game.print_board();
+  do {
+    std::cout << "Enter column number: ";
+    std::cin >> col_num;
+    std::cout << std::endl;
+
+    game.add_disk_to_column(col_num);
+
+    game.print_board();
+
+  } while(!game.game_over());
 
   return 0;
 }
@@ -57,9 +62,4 @@ main():
 
 
 		game.addToBoard(decidedColumn)
-
-
-
-
-
 */

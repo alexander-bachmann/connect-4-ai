@@ -23,12 +23,12 @@ void Game::generate_board()
     this->game_board[i].resize(this->n);
   }
 
-  //populating the board with filler underscores '_'
+  //populating the board with filler 0s
   for(int i = 0; i < this->n; ++i)
   {
     for(int j = 0; j < this->n; ++j)
     {
-      this->game_board[i][j] = "_";
+      this->game_board[i][j] = 0;
     }
   }
 }
@@ -51,7 +51,20 @@ void Game::print_board()
     for(int j = 0; j < this->n; ++j)
     {
       board_state.append("| ");
-      board_state.append(this->game_board[i][j]);
+
+      if(this->game_board[i][j] == 1)
+      {
+          board_state.append("X");
+      }
+      else if(this->game_board[i][j] == 2)
+      {
+        board_state.append("O");
+      }
+      else
+      {
+        board_state.append("_");
+      }
+
       board_state.append(" ");
     }
     board_state.append("|");
@@ -80,20 +93,18 @@ bool Game::game_over()
 
 void Game::add_disk_to_column(int j)
 {
-  //place in bottom (highest i available in column j)
-
   for(int i = this->n-1; i >= 0; --i)
   {
-    if(this->game_board[i][j] == "_")
+    if(this->game_board[i][j] == 0)
     {
       if(player_one_turn == true)
       {
-        this->game_board[i][j] = "X";
+        this->game_board[i][j] = 1;
         break;
       }
       else
       {
-        this->game_board[i][j] = "O";
+        this->game_board[i][j] = 2;
         break;
       }
     }
@@ -107,8 +118,8 @@ void Game::add_disk_to_column(int j)
 /*
 getters and setters for:
 
-int m;
-int n;
+int m; - perform validation in setter
+int n; - perform validation in setter
 int num_disks;
 bool player_one_turn;
 
