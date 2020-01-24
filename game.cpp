@@ -100,18 +100,19 @@ void Game::add_disk_to_column(int j)
       if(player_one_turn == true)
       {
         this->game_board[i][j] = 1;
+        player_one_turn = !player_one_turn;
+        this->num_disks++;
         break;
       }
       else
       {
         this->game_board[i][j] = 2;
+        player_one_turn = !player_one_turn;
+        this->num_disks++;
         break;
       }
     }
   }
-
-  player_one_turn = !player_one_turn;
-  this->num_disks++;
 }
 
 
