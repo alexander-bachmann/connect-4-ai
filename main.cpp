@@ -21,7 +21,7 @@ int main()
     game.print_board();
     //game.print_int_board();
 
-  } while(!game.game_over());
+  } while(!game.is_game_over());
 
   return 0;
 }

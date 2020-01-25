@@ -4,6 +4,7 @@ Game::Game(int n, int m)
 {
   set_n(n);
   set_m(m);
+  this->game_over = false;
   this->player_one_turn = true;
 }
 
@@ -89,14 +90,14 @@ void Game::print_int_board()
   }
 }
 
-bool Game::game_over()
+bool Game::is_game_over()
 {
-  /*
-    searches for a horizontal, vertical, or diagonal line
-		check if numDisks == n * n
-  */
+  if(this->num_disks == (this->n * this-> n))
+  {
+    return true;
+  }
 
-  return false;
+  return this->game_over;
 }
 
 bool Game::check_vertical_win(int j)
@@ -131,21 +132,24 @@ bool Game::check_horizontal_win(int j)
 
   for(int left_j = current_column; left_j >= 0; --left_j)
   {
+    //std::cout << "[" << this->i << ", " << left_j << "] checked" << std::endl;
     for(int right_j = left_j + 1; right_j < this->n; right_j++)
     {
-      if(this->game_board[this->i][left_j] == this->game_board[this->i][right_j])
+      //std::cout << "[" << this->i << ", " << right_j << "] checked" << std::endl;
+      if(this->game_board[this->i][left_j] == this->game_board[this->i][right_j] && this->game_board[this->i][left_j] != 0)
       {
         consectutive++;
-
-        std::cout << consectutive << std::endl;
-
+        //std::cout << consectutive << std::endl;
         if(consectutive == this->m)
         {
           return true;
         }
       }
+      else
+      {
+        break;
+      }
     }
-
     consectutive = 1;
   }
 
@@ -159,11 +163,30 @@ bool Game::check_diagonal_win(int j)
 
 bool Game::check_all_wins(int j)
 {
-  return check_vertical_win(j) || check_horizontal_win(j) || check_diagonal_win(j);
+  if(check_vertical_win(j) == true)
+  {
+    std::cout << "You win vertically!" << std::endl;
+    return true;
+  }
+  else if(check_horizontal_win(j) == true)
+  {
+    std::cout << "You win horizontally!" << std::endl;
+    return true;
+  }
+  else if(check_diagonal_win(j) == true)
+  {
+    std::cout << "You win diagonally!" << std::endl;
+    return true;
+  }
+
+  return false;
 }
 
 void Game::add_disk_to_column(int j)
 {
+  //so normies do not have to use 0 as first column
+  --j;
+
   if(j >= 0 && j < this->n)
   {
     for(int i = this->n-1; i >= 0; --i)
@@ -177,17 +200,11 @@ void Game::add_disk_to_column(int j)
           this->num_disks++;
           this->i = i;
 
-          if(check_vertical_win(j) == true)
+          if(check_all_wins(j) == true)
           {
-            std::cout << "You win vertically!" << std::endl;
+            this->game_over = true;
+            return;
           }
-
-          if(check_horizontal_win(j) == true)
-          {
-            std::cout << "You win horizontally!" << std::endl;
-          }
-
-
           break;
         }
         else
@@ -197,14 +214,10 @@ void Game::add_disk_to_column(int j)
           this->num_disks++;
           this-> i = i;
 
-          if(check_vertical_win(j) == true)
+          if(check_all_wins(j) == true)
           {
-            std::cout << "You win vertically!" << std::endl;
-          }
-
-          if(check_horizontal_win(j) == true)
-          {
-            std::cout << "You win horizontally!" << std::endl;
+            this->game_over = true;
+            return;
           }
           break;
         }
@@ -257,6 +270,8 @@ void Game::set_m(int m)
 
 
 /*
+privatize methods that are only ever called within the class (win checks)
+
 getters and setters for:
 
 int num_disks;
