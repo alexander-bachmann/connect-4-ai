@@ -105,7 +105,7 @@ bool Game::check_vertical_win(int j)
   int consectutive = 1;
 
   for(int i = this->i; i <= this->n-1; ++i)
-  {
+  {  	
     if(i != this->n - 1)
     {
       if(this->game_board[i][j] == this->game_board[i+1][j])
@@ -123,6 +123,8 @@ bool Game::check_vertical_win(int j)
       }
     }
   }
+  
+  return false;
 }
 
 bool Game::check_horizontal_win(int j)
@@ -158,7 +160,7 @@ bool Game::check_horizontal_win(int j)
 
 bool Game::check_diagonal_win(int j)
 {
-
+	return false;
 }
 
 bool Game::check_all_wins(int j)
@@ -178,7 +180,6 @@ bool Game::check_all_wins(int j)
     std::cout << "You win diagonally!" << std::endl;
     return true;
   }
-
   return false;
 }
 
@@ -195,7 +196,7 @@ void Game::add_disk_to_column(int j)
     {
       if(this->game_board[i][j] == 0)
       {
-	validSlotFound = true;
+		validSlotFound = true;
         if(player_one_turn == true)
         {
           this->game_board[i][j] = 1;
@@ -229,7 +230,7 @@ void Game::add_disk_to_column(int j)
 
     if (!validSlotFound)
     {
-      		std::cout << "Invalid column: Column full."  << std::endl;
+      std::cout << "Invalid column: Column full."  << std::endl;
     }
   }
   else
