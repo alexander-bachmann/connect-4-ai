@@ -92,7 +92,7 @@ void Game::print_int_board()
 
 bool Game::is_game_over()
 {
-  if(this->num_disks == (this->n * this-> n))
+  if(this->num_disks == (this->n * this->n))
   {
     return true;
   }
@@ -249,7 +249,6 @@ bool Game::check_all_wins(int j)
     std::cout << "You win diagonally!" << std::endl;
     return true;
   }
-
   return false;
 }
 
@@ -258,12 +257,15 @@ void Game::add_disk_to_column(int j)
   //so normies do not have to use 0 as first column
   --j;
 
+  bool validSlotFound = false; // for checking for full columns.
+
   if(j >= 0 && j < this->n)
   {
     for(int i = this->n-1; i >= 0; --i)
     {
       if(this->game_board[i][j] == 0)
       {
+		validSlotFound = true;
         if(player_one_turn == true)
         {
           this->game_board[i][j] = 1;
@@ -293,6 +295,11 @@ void Game::add_disk_to_column(int j)
           break;
         }
       }
+    }
+
+    if (!validSlotFound)
+    {
+      std::cout << "Invalid column: Column full."  << std::endl;
     }
   }
   else
