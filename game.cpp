@@ -265,7 +265,7 @@ void Game::add_disk_to_column(int j)
     {
       if(this->game_board[i][j] == 0)
       {
-		validSlotFound = true;
+		      validSlotFound = true;
         if(player_one_turn == true)
         {
           this->game_board[i][j] = 1;
