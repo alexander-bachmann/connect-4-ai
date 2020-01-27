@@ -123,6 +123,8 @@ bool Game::check_vertical_win(int j)
       }
     }
   }
+
+  return false;
 }
 
 bool Game::check_horizontal_win(int j)
@@ -158,7 +160,76 @@ bool Game::check_horizontal_win(int j)
 
 bool Game::check_diagonal_win(int j)
 {
+  int current_column = j;
+  int current_row;
+  int consectutive = 1;
 
+  //diagonally bottom right
+  for(int i = this->i; i > 0; --i)
+  {
+    current_row = i;
+
+    for(int j = current_column; j < this->n - 1; ++j)
+    {
+      if(current_row + 1 < this-> n && j < this->n)
+      {
+        //std::cout << "Compared [" << current_row << ", " << j << "] with [" << current_row + 1 << ", " << j + 1 << "]" << std::endl;
+        if(this->game_board[current_row][j] == this->game_board[current_row + 1][j + 1] && this->game_board[current_row][j] != 0)
+        {
+          ++consectutive;
+          ++current_row;
+
+          if(consectutive == this->m)
+          {
+            //std::cout << "You won diagonally to the bottom right!" << std::endl;
+            return true;
+          }
+        }
+        else
+        {
+          break;
+        }
+      }
+    }
+    --current_column;
+    consectutive = 1;
+  }
+
+  consectutive = 1;
+  current_column = j;
+
+  //diagonally bottom left
+  for(int i = this->i; i > 0; --i)
+  {
+    current_row = i;
+
+    for(int j = current_column; j >= 0; --j)
+    {
+      if(current_row + 1 < this-> n && j < this->n)
+      {
+        //std::cout << "Compared [" << current_row << ", " << j << "] with [" << current_row + 1 << ", " << j - 1 << "]" << std::endl;
+        if(this->game_board[current_row][j] == this->game_board[current_row + 1][j - 1] && this->game_board[current_row][j] != 0)
+        {
+          ++consectutive;
+          ++current_row;
+
+          if(consectutive == this->m)
+          {
+            //std::cout << "You won diagonally to the bottom left!" << std::endl;
+            return true;
+          }
+        }
+        else
+        {
+          break;
+        }
+      }
+    }
+    ++current_column;
+    consectutive = 1;
+  }
+
+  return false;
 }
 
 bool Game::check_all_wins(int j)
