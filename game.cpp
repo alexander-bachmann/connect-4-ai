@@ -160,6 +160,8 @@ bool Game::check_horizontal_win(int j)
 
 bool Game::check_diagonal_win(int j)
 {
+  //BUG: when m == n, none of the diag check works
+
   int current_column = j;
   int current_row;
   int consectutive = 1;
@@ -321,7 +323,6 @@ void Game::set_n(int n)
 
     std::cout << "Enter valid 'n' (3 - 10): ";
     std::cin >> new_n;
-    std::cout << std::endl;
 
     set_n(new_n);
   }
@@ -337,9 +338,8 @@ void Game::set_m(int m)
   {
     int new_m = 0;
 
-    std::cout << "Please enter valid 'm' (2 - n): ";
+    std::cout << "Enter valid 'm' (2 - n): ";
     std::cin >> new_m;
-    std::cout << std::endl;
 
     set_m(new_m);
   }

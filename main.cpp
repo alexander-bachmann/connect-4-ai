@@ -4,7 +4,14 @@
 
 int main()
 {
-  Game game = Game(5, 3); //5x5, connect 3
+  int n;
+  int m;
+  std::cout << "Enter dimension size (n x n): ";
+  std::cin >> n;
+  std::cout << "Enter number of consectutive disks: ";
+  std::cin >> m;
+
+  Game game = Game(n, m); //5x5, connect 3
   game.generate_board();
 
   game.print_board();
