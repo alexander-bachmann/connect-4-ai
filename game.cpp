@@ -170,7 +170,7 @@ bool Game::check_diagonal_win(int j)
 
   //diagonally bottom right
   std::cout << "Bottom Right: " << std::endl;
-  for(int i = this->i; i > 0; --i)
+  for(int i = this->i; i >= 0; --i)
   {
     current_row = i;
 
@@ -178,7 +178,7 @@ bool Game::check_diagonal_win(int j)
     {
       if(current_row + 1 < this-> n && (j < this->n && j >= 0))
       {
-        std::cout << "Compared [" << current_row << ", " << j << "] with [" << current_row + 1 << ", " << j + 1 << "]" << std::endl;
+        //std::cout << "Compared [" << current_row << ", " << j << "] with [" << current_row + 1 << ", " << j + 1 << "]" << std::endl;
         if(this->game_board[current_row][j] == this->game_board[current_row + 1][j + 1] && this->game_board[current_row][j] != 0)
         {
           ++consectutive;
@@ -205,7 +205,7 @@ bool Game::check_diagonal_win(int j)
 
   //diagonally bottom left
   std::cout << "Bottom Left: " << std::endl;
-  for(int i = this->i; i > 0; --i)
+  for(int i = this->i; i >= 0; --i)
   {
     current_row = i;
 
@@ -214,7 +214,7 @@ bool Game::check_diagonal_win(int j)
       if(current_row + 1 < this-> n && (j < this->n && j >= 0))
       {
 
-        std::cout << "Compared [" << current_row << ", " << j << "] with [" << current_row + 1 << ", " << j - 1 << "]" << std::endl;
+        //std::cout << "Compared [" << current_row << ", " << j << "] with [" << current_row + 1 << ", " << j - 1 << "]" << std::endl;
         if(this->game_board[current_row][j] == this->game_board[current_row + 1][j - 1] && this->game_board[current_row][j] != 0)
         {
           ++consectutive;
