@@ -12,7 +12,7 @@ void Game::generate_board()
 {
   std::cout << "Generating board..." << std::endl;
 
-  //resizing the board based off of n
+  //resizing the board based off of n 
   this->game_board.resize(this->n);
   for(long unsigned int i = 0; i < this->game_board.size(); ++i)
   {
@@ -350,15 +350,6 @@ void Game::set_m(int m)
   }
 }
 
-
-
 /*
 privatize methods that are only ever called within the class (win checks)
-
-getters and setters for:
-
-int num_disks;
-bool player_one_turn;
-
-vector<vector<int>> game_board;
 */
