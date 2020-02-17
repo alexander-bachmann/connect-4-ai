@@ -21,6 +21,13 @@ class Game
     bool check_diagonal_win(int);
     bool check_all_wins(int);
 
+    // bool is_game_over(); // MAKE THIS, JUST COPY CHECK_ALL_WINS
+    void pop_most_recent_move(); //KEEP TRACK OF MOST RECENT ROW AND COLUMN WHEN A MOVE IS MADE
+    //MUST CHANGE BACK THE TURN WHEN THE MOST RECENT MOVE IS POPPED
+
+
+
+
   private:
     int n; //row and column length
     int m; //number on consectutive disks needed to achieve victory
@@ -28,6 +35,8 @@ class Game
     int num_disks; //number of disks that have been played (used to stop game if no winner)
     bool player_one_turn; //rotation of turns
     bool game_over;
+    int most_recent_row;
+    int most_recent_col;
     std::vector<std::vector<int>> game_board;
     void set_n(int); //includes validation
     void set_m(int); //includes validation

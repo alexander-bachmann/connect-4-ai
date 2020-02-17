@@ -23,10 +23,20 @@ int main()
     std::cin >> col_num;
     std::cout << std::endl;
 
+    //convenient for testing and need it for finding child states in minimax algorithm
+    if(col_num == -1)
+    {
+      game.pop_most_recent_move();
+      game.print_board();
+
+      continue;
+    }
+
     game.add_disk_to_column(col_num);
 
     game.print_board();
     //game.print_int_board();
+
 
   } while(!game.is_game_over());
 

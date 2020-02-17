@@ -12,7 +12,7 @@ void Game::generate_board()
 {
   std::cout << "Generating board..." << std::endl;
 
-  //resizing the board based off of n 
+  //resizing the board based off of n
   this->game_board.resize(this->n);
   for(long unsigned int i = 0; i < this->game_board.size(); ++i)
   {
@@ -169,7 +169,7 @@ bool Game::check_diagonal_win(int j)
   //TOP ROW DOES NO CHECKING
 
   //diagonally bottom right
-  std::cout << "Bottom Right: " << std::endl;
+  // std::cout << "Bottom Right: " << std::endl;
   for(int i = this->i; i >= 0; --i)
   {
     current_row = i;
@@ -204,7 +204,7 @@ bool Game::check_diagonal_win(int j)
   current_column = j;
 
   //diagonally bottom left
-  std::cout << "Bottom Left: " << std::endl;
+  // std::cout << "Bottom Left: " << std::endl;
   for(int i = this->i; i >= 0; --i)
   {
     current_row = i;
@@ -280,6 +280,9 @@ void Game::add_disk_to_column(int j)
           this->num_disks++;
           this->i = i;
 
+          this->most_recent_row = i;
+          this->most_recent_col = j;
+
           if(check_all_wins(j) == true)
           {
             this->game_over = true;
@@ -293,6 +296,9 @@ void Game::add_disk_to_column(int j)
           player_one_turn = !player_one_turn;
           this->num_disks++;
           this-> i = i;
+
+          this->most_recent_row = i;
+          this->most_recent_col = j;
 
           if(check_all_wins(j) == true)
           {
@@ -315,6 +321,13 @@ void Game::add_disk_to_column(int j)
   }
 
 }
+
+void Game::pop_most_recent_move()
+{
+  this->game_board[this->most_recent_row][this->most_recent_col] = 0;
+  player_one_turn = !player_one_turn;
+}
+
 
 void Game::set_n(int n)
 {
