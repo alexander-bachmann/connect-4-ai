@@ -34,7 +34,16 @@ a < b - no pruning
 
 /*
 
-TO DO 
+TO DO
+
+create a general tree structure to simply hold the evaluation int's
+
+void generate_tree(depth) - depth determines the size and number of children for the tree
+  given board dimension aka n = 4, and depth = 3
+    current game_board will have 4 children, those children will each have 4 children, and those children will each have 4 children
+
+    meaning that there will be at most 4 * 4 * 4 = 64 game_boards that need to be analyzed
+
 
 heuristic_evaluation() - count the number of possible winning paths based on that move and check if a move results in a winning state for either player
 
@@ -46,9 +55,9 @@ minimax() - minimizing the possible loss for a worst case (maximum loss) scenari
 initial call: minimax(game_board, 3, true) //make a decision looking 3 turns in the future based off current game_board, and it's true that it is AI's turn when minimax is called
 
 
-  minimax(vector[][] game_board, int depth, bool maximizing_player)
+int minimax(vector[][] game_board, int depth, bool maximizing_player)
     if depth == 0 || is_game_over in game_board
-      return static evaluation of game_board -- CALL heuristic_evaluation() HERE
+      return static evaluation of game_board -- CALL heuristic_evaluation() HERE - must factor in whose turn it is when counting, probably just base it off player_one_turn
 
     if maximizing_player (is AIs turn to move)
       max_eval = -INF
