@@ -32,8 +32,8 @@ void AIPlayer::take_turn()
 int AIPlayer::heuristic_evaluation(std::vector<std::vector<int>> game_board)
 {
   int eval;
-  int player_1_num_winning_moves = 0;
-  int player_2_num_winning_moves = 0;
+  int self_num_winning_moves = 0;
+  int opponent_num_winning_moves = 0;
 
   //count the number of possible winning paths remaining
   //and subtract that from opponents number of winning paths remaining
@@ -41,13 +41,13 @@ int AIPlayer::heuristic_evaluation(std::vector<std::vector<int>> game_board)
   //check if a move results in a winning state for either player
   //favor longer rows (if time permits)
 
-  player_1_num_winning_moves = count_num_horizontal_wins(this->disk_num) + count_num_vertical_wins(this->disk_num) + count_num_diagonal_wins(this->disk_num);
-  player_2_num_winning_moves = count_num_horizontal_wins(this->opponent_disk_num) + count_num_vertical_wins(this->opponent_disk_num) + count_num_diagonal_wins(this->opponent_disk_num);
+  self_num_winning_moves = count_num_horizontal_wins(this->disk_num) + count_num_vertical_wins(this->disk_num) + count_num_diagonal_wins(this->disk_num);
+  opponent_num_winning_moves = count_num_horizontal_wins(this->opponent_disk_num) + count_num_vertical_wins(this->opponent_disk_num) + count_num_diagonal_wins(this->opponent_disk_num);
 
-  eval = player_1_num_winning_moves - player_2_num_winning_moves;
+  eval = self_num_winning_moves - opponent_num_winning_moves;
 
-  std::cout << "Player 1 num winning moves: " << player_1_num_winning_moves << std::endl;
-  std::cout << "Player 2 num winning moves: " << player_2_num_winning_moves << std::endl;
+  std::cout << "Self num winning moves: " << self_num_winning_moves << std::endl;
+  std::cout << "Opponent num winning moves: " << opponent_num_winning_moves << std::endl;
 
   std::cout << "Heuristic evaluation of board: " << eval << std::endl;
 
