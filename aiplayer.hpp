@@ -68,7 +68,7 @@ class AIPlayer
 
     int min(int, int);
     int max(int, int);
-    int minimax(std::vector<std::vector<int>>, int, bool); //game_board, depth, maximizing_player -- add alpha and beta too
+    int minimax(std::vector<std::vector<int>>, int, bool, int, int); //game_board, depth, maximizing_player -- add alpha and beta too
 
     void take_turn();
 
