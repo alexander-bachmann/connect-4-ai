@@ -1,5 +1,10 @@
 #include "game.hpp"
 
+Game::Game()
+{
+  
+}
+
 Game::Game(int n, int m)
 {
   set_n(n);
@@ -327,7 +332,6 @@ void Game::pop_most_recent_move()
   this->game_board[this->most_recent_row][this->most_recent_col] = 0;
   player_one_turn = !player_one_turn;
 }
-
 
 void Game::set_n(int n)
 {

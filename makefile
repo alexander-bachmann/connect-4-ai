@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall
 
-OBJECTS = game.o
+OBJECTS = game.o aiplayer.o humanplayer.o
 HEADERS = $(shell find . -path ./test -prune -o -name "*.hpp" -print)
 
 main: main.o $(OBJECTS)
@@ -9,6 +9,12 @@ main: main.o $(OBJECTS)
 
 game.o: game.hpp game.cpp
 	$(CXX) $(CXXFLAGS) -c game.cpp
+
+aiplayer.o: aiplayer.hpp aiplayer.cpp
+	$(CXX) $(CXXFLAGS) -c aiplayer.cpp
+
+humanplayer.o: humanplayer.hpp humanplayer.cpp
+	$(CXX) $(CXXFLAGS) -c humanplayer.cpp
 
 $(OBJECTS): $(HEADERS)
 

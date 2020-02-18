@@ -44,43 +44,35 @@ void generate_tree(depth) - depth determines the size and number of children for
 
     meaning that there will be at most 4 * 4 * 4 = 64 game_boards that need to be analyzed
 
-
-heuristic_evaluation() - count the number of possible winning paths based on that move and check if a move results in a winning state for either player
-
-max() --- simple max function
-
-min() --- simple min function
-
-minimax() - minimizing the possible loss for a worst case (maximum loss) scenario.
 initial call: minimax(game_board, 3, true) //make a decision looking 3 turns in the future based off current game_board, and it's true that it is AI's turn when minimax is called
-
-
-int minimax(vector[][] game_board, int depth, bool maximizing_player)
-    if depth == 0 || is_game_over in game_board
-      return static evaluation of game_board -- CALL heuristic_evaluation() HERE - must factor in whose turn it is when counting, probably just base it off player_one_turn
-
-    if maximizing_player (is AIs turn to move)
-      max_eval = -INF
-      for each child (all future game_boards one turn from now, stemming from current game_board) - columns 1 through N
-        //this is where piece is placed in each successive column
-
-        eval = minimax(child_game_board, depth - 1, false)
-        max_eval = max_value(max_eval, eval)
-
-        //this is where previous piece is popped
-
-      return max_eval
-
-
-    else (is human's turn to move)
-      min_eval = +INF
-      for each child (all future game_boards one turn from now, stemming from current game_board)
-        //this is where piece is placed in each sucessive column
-
-        eval = minimax(child_game_board, depth - 1, true)
-        min_eval = min(minEval, eval)
-
-        //this is where previous piece is popped
-
-      return min_eval
 */
+
+#ifndef AIPLAYER_HPP
+#define AIPLAYER_HPP
+
+#include "game.hpp"
+
+#include <vector>
+#include <iostream>
+
+class AIPlayer
+{
+  public:
+
+    AIPlayer();
+    AIPlayer(Game* game);
+
+    int heuristic_evaluation(std::vector<std::vector<int>>); //game_board
+    int min(int, int);
+    int max(int, int);
+    int minimax(std::vector<std::vector<int>>, int, bool); //game_board, depth, maximizing_player -- add alpha and beta too
+
+    void take_turn();
+
+
+  private:
+    Game* game;
+
+};
+
+#endif

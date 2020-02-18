@@ -10,6 +10,7 @@
 class Game
 {
   public:
+    Game();
     Game(int, int);
     void generate_board(); //initialize empty board
     void print_board(); //prints ASCII board
@@ -35,8 +36,10 @@ class Game
     int num_disks; //number of disks that have been played (used to stop game if no winner)
     bool player_one_turn; //rotation of turns
     bool game_over;
+
     int most_recent_row;
     int most_recent_col;
+
     std::vector<std::vector<int>> game_board;
     void set_n(int); //includes validation
     void set_m(int); //includes validation
