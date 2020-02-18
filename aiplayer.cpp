@@ -41,8 +41,8 @@ int AIPlayer::heuristic_evaluation(std::vector<std::vector<int>> game_board)
   //check if a move results in a winning state for either player
   //favor longer rows (if time permits)
 
-  self_num_winning_moves = count_num_horizontal_wins(this->disk_num) /*+ count_num_vertical_wins(this->disk_num) */+ count_num_diagonal_wins(this->disk_num);
-  opponent_num_winning_moves = count_num_horizontal_wins(this->opponent_disk_num) /*+ count_num_vertical_wins(this->opponent_disk_num)*/ + count_num_diagonal_wins(this->opponent_disk_num);
+  self_num_winning_moves = /*count_num_horizontal_wins(this->disk_num) + count_num_vertical_wins(this->disk_num) +*/ count_num_diagonal_wins(this->disk_num);
+  opponent_num_winning_moves = /*count_num_horizontal_wins(this->opponent_disk_num) + count_num_vertical_wins(this->opponent_disk_num) +*/ count_num_diagonal_wins(this->opponent_disk_num);
 
   eval = self_num_winning_moves - opponent_num_winning_moves;
 
@@ -126,6 +126,53 @@ int AIPlayer::count_num_horizontal_wins(int player_disk_num)
 int AIPlayer::count_num_diagonal_wins(int player_disk_num)
 {
   int num_wins = 0;
+  int consecutive = 0;
+
+  //checking all right diags
+  for(int i = 0; i < this->game->get_n() - 1; i++)
+  {
+    for(int j = 0; j < this->game->get_n() - 1; j++)
+    {
+      consecutive = 0;
+
+      //GOING DOWN DIAGONALLY
+      for(int k = i; k <= this->game->get_m(); k++)
+      {
+        for(int l = j; l <= this->game->get_m(); l++)
+        {
+            //0, 1 -> 1, 2
+
+            if(this->game->get_game_board()[k][l] == 0 || this->game->get_game_board()[k][l] == player_disk_num)
+            {
+              ++consecutive;
+            }
+            else
+            {
+              break;
+            }
+            if(consecutive == this->game->get_m())
+            {
+              ++num_wins;
+              break;
+            }
+
+        }
+      }
+    }
+  }
+
+  //checking all left diags
+  for(int i = 0; i < this->game->get_n() - 1; i++)
+  {
+    for(int j = 0; j < this->game->get_n() - 1; j++)
+    {
+      consecutive = 0;
+
+    }
+  }
+
+
+
 
   return num_wins;
 }
