@@ -43,8 +43,10 @@ initial call: minimax(game_board, 3, true) //make a decision looking 3 turns in 
 
 #include "game.hpp"
 
+
 #include <vector>
 #include <iostream>
+#include <cmath>
 
 class AIPlayer
 {
