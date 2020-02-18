@@ -21,8 +21,6 @@ AIPlayer::AIPlayer(Game* game, int disk_num)
     this->opponent_disk_num = 1;
   }
 
-  generate_tree(3); //probs wont have it here -- regenerate tree?? or rewrite tree?? probs rewrite
-
   std::cout << "An AI has been created..." << std::endl;
 }
 
@@ -212,76 +210,6 @@ int AIPlayer::count_num_diagonal_wins(int player_disk_num)
 
   return num_wins;
 }
-
-
-
-
-// 
-// Node* AIPlayer::new_node(int eval)
-// {
-//   Node* new_node = new Node;
-//   new_node->eval = eval;
-//   return new_node;
-// }
-//
-// void AIPlayer::generate_children(Node* current_child, int num_children)
-// {
-//   for(int i = 0; i < num_children; i++)
-//   {
-//     current_child->child.push_back(new_node(0));
-//   }
-// }
-//
-// void AIPlayer::generate_tree(int depth)
-// {
-//   Node* root = new_node(0);
-//   int number_of_nodes = 1;
-//
-//   //for each turn to look ahead
-//
-//   std::vector<Node*> current_child;
-//
-//   current_child = root;
-//
-//   // for(int i = 0; i < depth; i++)
-//   // {
-//   //   generate_children(current_child->child);
-//   //
-//   //   for(int j = 0; j < this->game->get_n(); j++)
-//   //   {
-//   //     current_child = current_child->child[j];
-//   //     generate_children(current_child);
-//   //   }
-//   // }
-//
-//   /*
-//   for each layer (depth), create n children
-//
-//     for each child
-//
-//   */
-//
-//
-//   //
-//   // for(int i = 0; i < depth; i++)
-//   // {
-//   //   current_child->push_back(new_node(0));
-//   //
-//   //   for(int j = 0; j < this->game->get_n(); j++)
-//   //   {
-//   //
-//   //   }
-//   // }
-//   //   root->child[i]->child->push_back(new_node(0));
-//   //
-//
-//
-//
-//   std::cout << "Number of nodes in tree: " << number_of_nodes << std::endl;
-// }
-//
-
-
 
 //minimizing the possible loss for a maximum loss (worst case) scenario.
 int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool maximizing_player)
