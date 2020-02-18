@@ -72,10 +72,9 @@ class AIPlayer
 
     void take_turn();
 
-
-    Node* new_node(int);
-    void generate_children(Node*, int);
-    void generate_tree(int);
+    // Node* new_node(int);
+    // void generate_children(Node*, int);
+    // void generate_tree(int);
 
 
 
