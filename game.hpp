@@ -22,6 +22,8 @@ class Game
     bool check_diagonal_win(int);
     bool check_all_wins(int);
 
+    int get_n();
+    int get_m();
     // bool is_game_over(); // MAKE THIS, JUST COPY CHECK_ALL_WINS
     void pop_most_recent_move(); //KEEP TRACK OF MOST RECENT ROW AND COLUMN WHEN A MOVE IS MADE
     //MUST CHANGE BACK THE TURN WHEN THE MOST RECENT MOVE IS POPPED

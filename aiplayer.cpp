@@ -6,9 +6,21 @@ AIPlayer::AIPlayer()
   std::cout << "An AI has been created..." << std::endl;
 }
 
-AIPlayer::AIPlayer(Game* game)
+AIPlayer::AIPlayer(Game* game, int disk_num)
 {
   this->game = game;
+  this->disk_num = disk_num;
+
+  //used in heuristic_evaluation()
+  if(this->disk_num == 1)
+  {
+    this->opponent_disk_num = 2;
+  }
+  else if(this->disk_num == 2)
+  {
+    this->opponent_disk_num = 1;
+  }
+
   std::cout << "An AI has been created..." << std::endl;
 }
 
@@ -23,32 +35,80 @@ int AIPlayer::heuristic_evaluation(std::vector<std::vector<int>> game_board)
   int player_1_num_winning_moves = 0;
   int player_2_num_winning_moves = 0;
 
-  //count the number of possible winning paths remaining and subtract that from opponents number of winning paths remaining
+  //count the number of possible winning paths remaining
+  //and subtract that from opponents number of winning paths remaining
+
   //check if a move results in a winning state for either player
+  //favor longer rows (if time permits)
 
-  /*
-    for i
-      for j
+  player_1_num_winning_moves = count_num_horizontal_wins(this->disk_num) + count_num_vertical_wins(this->disk_num) + count_num_diagonal_wins(this->disk_num);
+  player_2_num_winning_moves = count_num_horizontal_wins(this->opponent_disk_num) + count_num_vertical_wins(this->opponent_disk_num) + count_num_diagonal_wins(this->opponent_disk_num);
 
-
-
-  */
+  eval = player_1_num_winning_moves - player_2_num_winning_moves;
 
   std::cout << "Player 1 num winning moves: " << player_1_num_winning_moves << std::endl;
   std::cout << "Player 2 num winning moves: " << player_2_num_winning_moves << std::endl;
 
-  eval = player_1_num_winning_moves - player_2_num_winning_moves;
-  std::cout << "heuristic_evaluation: " << eval << std::endl;
+  std::cout << "Heuristic evaluation of board: " << eval << std::endl;
 
   return eval;
+}
 
+int AIPlayer::count_num_vertical_wins(int player_disk_num)
+{
+  int num_wins = 0;
+  int consecutive = 0;
+
+  for(int i = 0; i < this->game->get_n() - 1; i++)
+  {
+    for(int j = 0; j < this->game->get_n(); j++)
+    {
+      consecutive = 0;
+
+      //GO DOWN THE COLUMN
+      for(int k = i; k < this->game->get_n(); k++)
+      {
+        if(this->game->get_game_board()[k][j] == 0 || this->game->get_game_board()[k][j] == player_disk_num)
+        {
+          ++consecutive;
+        }
+        else
+        {
+          break;
+        }
+      }
+
+      if(consecutive == this->game->get_m())
+      {
+        ++num_wins;
+      }
+
+
+    }
+  }
+
+  return num_wins;
+}
+
+int AIPlayer::count_num_horizontal_wins(int player_disk_num)
+{
+  int num_wins = 0;
+
+  return num_wins;
+}
+
+int AIPlayer::count_num_diagonal_wins(int player_disk_num)
+{
+  int num_wins = 0;
+
+  return num_wins;
 }
 
 //minimizing the possible loss for a maximum loss (worst case) scenario.
 int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool maximizing_player)
 {
 
-  heuristic_evaluation(game_board);
+  return heuristic_evaluation(game_board);
 
 
   // if depth == 0 || is_game_over in game_board

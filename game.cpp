@@ -364,6 +364,16 @@ void Game::set_m(int m)
   }
 }
 
+int Game::get_n()
+{
+  return this->n;
+}
+
+int Game::get_m()
+{
+  return this->m;
+}
+
 std::vector<std::vector<int>> Game::get_game_board()
 {
   return this->game_board;

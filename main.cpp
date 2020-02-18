@@ -28,7 +28,7 @@ int main()
 
   HumanPlayer player1(gameptr);
   //HumanPlayer player2(gameptr);
-  AIPlayer player2(gameptr);
+  AIPlayer player2(gameptr, 2);
 
   //EVENTUALLY IMPLEMENT
   // if(num_humans == 1)
