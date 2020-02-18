@@ -2,7 +2,7 @@
 
 Game::Game()
 {
-  
+
 }
 
 Game::Game(int n, int m)
@@ -165,13 +165,10 @@ bool Game::check_horizontal_win(int j)
 
 bool Game::check_diagonal_win(int j)
 {
-  //BUG: when m == n, none of the diag check works
 
   int current_column = j;
   int current_row;
   int consectutive = 1;
-
-  //TOP ROW DOES NO CHECKING
 
   //diagonally bottom right
   // std::cout << "Bottom Right: " << std::endl;
@@ -365,6 +362,11 @@ void Game::set_m(int m)
 
     set_m(new_m);
   }
+}
+
+std::vector<std::vector<int>> Game::get_game_board()
+{
+  return this->game_board;
 }
 
 /*

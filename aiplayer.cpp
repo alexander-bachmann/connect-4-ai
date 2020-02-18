@@ -14,21 +14,43 @@ AIPlayer::AIPlayer(Game* game)
 
 void AIPlayer::take_turn()
 {
-  //game->add_disk_to_column(minimax());
+  this->game->add_disk_to_column(minimax(this->game->get_game_board(), 3, true));
 }
 
 int AIPlayer::heuristic_evaluation(std::vector<std::vector<int>> game_board)
 {
-  //count the number of possible winning paths based on that move
+  int eval;
+  int player_1_num_winning_moves = 0;
+  int player_2_num_winning_moves = 0;
+
+  //count the number of possible winning paths remaining and subtract that from opponents number of winning paths remaining
   //check if a move results in a winning state for either player
 
+  /*
+    for i
+      for j
 
+
+
+  */
+
+  std::cout << "Player 1 num winning moves: " << player_1_num_winning_moves << std::endl;
+  std::cout << "Player 2 num winning moves: " << player_2_num_winning_moves << std::endl;
+
+  eval = player_1_num_winning_moves - player_2_num_winning_moves;
+  std::cout << "heuristic_evaluation: " << eval << std::endl;
+
+  return eval;
 
 }
 
 //minimizing the possible loss for a maximum loss (worst case) scenario.
 int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool maximizing_player)
 {
+
+  heuristic_evaluation(game_board);
+
+
   // if depth == 0 || is_game_over in game_board
   //   return static evaluation of game_board -- CALL heuristic_evaluation() HERE - must factor in whose turn it is when counting, probably just base it off player_one_turn
   //
@@ -51,7 +73,7 @@ int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool 
   //     //this is where piece is placed in each sucessive column
   //
   //     eval = minimax(child_game_board, depth - 1, true)
-  //     min_eval = min(minEval, eval)
+  //     min_eval = min(min_eval, eval)
   //
   //     //this is where previous piece is popped
   //

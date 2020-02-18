@@ -26,6 +26,7 @@ class Game
     void pop_most_recent_move(); //KEEP TRACK OF MOST RECENT ROW AND COLUMN WHEN A MOVE IS MADE
     //MUST CHANGE BACK THE TURN WHEN THE MOST RECENT MOVE IS POPPED
 
+    std::vector<std::vector<int>> get_game_board();
 
 
 

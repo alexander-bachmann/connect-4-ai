@@ -27,7 +27,8 @@ int main()
   Game* gameptr = &game;
 
   HumanPlayer player1(gameptr);
-  HumanPlayer player2(gameptr);
+  //HumanPlayer player2(gameptr);
+  AIPlayer player2(gameptr);
 
   //EVENTUALLY IMPLEMENT
   // if(num_humans == 1)
