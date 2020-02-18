@@ -48,6 +48,12 @@ initial call: minimax(game_board, 3, true) //make a decision looking 3 turns in 
 #include <iostream>
 #include <cmath>
 
+struct Node
+{
+  int eval;
+  std::vector<Node*> child;
+};
+
 class AIPlayer
 {
   public:
@@ -65,6 +71,13 @@ class AIPlayer
     int minimax(std::vector<std::vector<int>>, int, bool); //game_board, depth, maximizing_player -- add alpha and beta too
 
     void take_turn();
+
+
+    Node* new_node(int);
+    void generate_children(Node*, int);
+    void generate_tree(int);
+
+
 
   private:
     Game* game;
