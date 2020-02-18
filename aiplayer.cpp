@@ -76,14 +76,12 @@ int AIPlayer::count_num_vertical_wins(int player_disk_num)
         {
           break;
         }
+        if(consecutive == this->game->get_m())
+        {
+          ++num_wins;
+          break;
+        }
       }
-
-      if(consecutive == this->game->get_m())
-      {
-        ++num_wins;
-      }
-
-
     }
   }
 
@@ -108,7 +106,7 @@ int AIPlayer::count_num_diagonal_wins(int player_disk_num)
 int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool maximizing_player)
 {
 
-  return heuristic_evaluation(game_board);
+  heuristic_evaluation(game_board);
 
 
   // if depth == 0 || is_game_over in game_board
