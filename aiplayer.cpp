@@ -21,6 +21,8 @@ AIPlayer::AIPlayer(Game* game, int disk_num)
     this->opponent_disk_num = 1;
   }
 
+  generate_tree(); //probs wont have it here -- regenerate tree?? or rewrite tree?? probs rewrite
+
   std::cout << "An AI has been created..." << std::endl;
 }
 
@@ -210,6 +212,45 @@ int AIPlayer::count_num_diagonal_wins(int player_disk_num)
 
   return num_wins;
 }
+
+
+
+
+
+struct Node
+{
+  int eval;
+  std::vector<Node*> child;
+}
+
+Node* new_node(int eval)
+{
+  Node* new_node = new Node;
+  new_node->eval = eval;
+  return new_node;
+}
+
+void generate_tree(int depth)
+{
+  Node* root = new_node(0);
+  int number_of_nodes = 1;
+
+  //for each turn to look ahead
+  for(int i = 0; i < this->game->get_n(); i++)
+  {
+    root->child->push_back(new_node(0));
+
+    for(int j = 0; j < depth; j++)
+    {
+      root->child[i]->push_back(new_node(0));
+    }
+  }
+
+  std::cout << "Number of nodes in tree: " << number_of_nodes << std::endl;
+}
+
+
+
 
 //minimizing the possible loss for a maximum loss (worst case) scenario.
 int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool maximizing_player)
