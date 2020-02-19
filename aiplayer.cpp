@@ -26,6 +26,10 @@ AIPlayer::AIPlayer(Game* game, int disk_num)
 
 void AIPlayer::take_turn()
 {
+  print_all_boards(this->game->get_game_board(), 3);
+  this->game->print_board();
+
+
   int column = minimax(this->game->get_game_board(), 3, true, -1000, 1000);
 
   std::cout << "AI Col: " << column << std::endl;
@@ -220,7 +224,7 @@ int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool 
 {
   int eval;
 
-  //heuristic_evaluation(game_board);
+  //this->game->print_board();
 
   //TODO - is_game_over
 
@@ -233,32 +237,34 @@ int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool 
 
   if(maximizing_player == true) //is AI's turn to move
   {
-    float max_eval = -1000;
+    int max_eval = -1000;
 
-    for(int i = 0; i < this->game->get_n(); ++i)
+    for(int i = 1; i <= this->game->get_n(); ++i)
     {
       this->game->add_disk_to_column(i);
 
       eval = minimax(game_board, depth - 1, false, alpha, beta);
-
       max_eval = max(max_eval, eval);
-      alpha = max(alpha, eval);
 
-      this->game->pop_most_recent_move();
+      alpha = max(alpha, eval);
+      ///this->game->pop_most_recent_move();
+      this->game->pop_from_column(i);
 
       if(beta <= alpha)
       {
         break;
       }
-
-      return max_eval;
     }
+
+    return max_eval;
+
+
   }
   else //is Human's turn to move
   {
-    float min_eval = 1000;
+    int min_eval = 1000;
 
-    for(int i = 0; i < this->game->get_n(); ++i)
+    for(int i = 1; i <= this->game->get_n(); ++i)
     {
       this->game->add_disk_to_column(i);
 
@@ -267,15 +273,17 @@ int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool 
       min_eval = min(min_eval, eval);
       beta = min(beta, eval);
 
-      this->game->pop_most_recent_move();
+      //this->game->pop_most_recent_move();
+      this->game->pop_from_column(i);
 
       if(beta <= alpha)
       {
         break;
       }
 
-      return min_eval;
     }
+
+    return min_eval;
   }
 
   // if depth == 0 || is_game_over in game_board
@@ -306,6 +314,28 @@ int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool 
   //
   //   return min_eval
 }
+
+void AIPlayer::print_all_boards(std::vector<std::vector<int>> game_board, int depth)
+{
+  this->game->print_board();
+
+  if(depth == 0)
+  {
+    return;
+  }
+
+  for(int i = 1; i <= this->game->get_n(); ++i)
+  {
+    bool successful_add = this->game->add_disk_to_column(i);
+
+    if(successful_add == true)
+    {
+      print_all_boards(game_board, depth - 1);
+      this->game->pop_from_column(i);
+    }
+  }
+}
+
 
 int AIPlayer::min(int num_1, int num_2)
 {

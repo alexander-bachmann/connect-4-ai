@@ -261,7 +261,7 @@ bool Game::check_all_wins(int j)
   return false;
 }
 
-void Game::add_disk_to_column(int j)
+bool Game::add_disk_to_column(int j)
 {
   //so normies do not have to use 0 as first column
   --j;
@@ -288,7 +288,7 @@ void Game::add_disk_to_column(int j)
           if(check_all_wins(j) == true)
           {
             this->game_over = true;
-            return;
+            //return;
           }
           break;
         }
@@ -305,7 +305,7 @@ void Game::add_disk_to_column(int j)
           if(check_all_wins(j) == true)
           {
             this->game_over = true;
-            return;
+            //return;
           }
           break;
         }
@@ -315,19 +315,42 @@ void Game::add_disk_to_column(int j)
     if (!validSlotFound)
     {
       std::cout << "Invalid column: Column full."  << std::endl;
+      return false;
     }
   }
   else
   {
     std::cout << "Invalid column: out of range" << std::endl;
+    return false;
   }
+
+  return true;
+  // player_one_turn = !player_one_turn;
 
 }
 
 void Game::pop_most_recent_move()
 {
   this->game_board[this->most_recent_row][this->most_recent_col] = 0;
+  this->game_over = false;
   player_one_turn = !player_one_turn;
+}
+
+void Game::pop_from_column(int j)
+{
+  j--;
+
+  for(int i = 0; i < this->n; i++)
+  {
+    if(this->game_board[i][j] == 1 || this->game_board[i][j] == 2)
+    {
+      this->game_over = false;
+      this->num_disks--;
+      player_one_turn = !player_one_turn;
+      this->game_board[i][j] = 0;
+      return;
+    }
+  }
 }
 
 void Game::set_n(int n)

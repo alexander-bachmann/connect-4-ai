@@ -16,7 +16,7 @@ class Game
     void print_board(); //prints ASCII board
     void print_int_board(); //prints actual vector[][] values
     bool is_game_over(); //checks if winning board state has been reached
-    void add_disk_to_column(int); //int - column number to drop disk in
+    bool add_disk_to_column(int); //int - column number to drop disk in
     bool check_vertical_win(int);
     bool check_horizontal_win(int);
     bool check_diagonal_win(int);
@@ -27,6 +27,7 @@ class Game
     // bool is_game_over(); // MAKE THIS, JUST COPY CHECK_ALL_WINS
     void pop_most_recent_move(); //KEEP TRACK OF MOST RECENT ROW AND COLUMN WHEN A MOVE IS MADE
     //MUST CHANGE BACK THE TURN WHEN THE MOST RECENT MOVE IS POPPED
+    void pop_from_column(int);
 
     std::vector<std::vector<int>> get_game_board();
 
