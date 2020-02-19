@@ -32,7 +32,7 @@ void AIPlayer::take_turn()
   std::pair<int, int> chosen_column = minimax(this->game->get_game_board(), 5, true, alpha, beta);
 
   std::cout << "Chosen column heuristic evaluation score: " << chosen_column.first << std::endl;
-  std::cout << "Chosen column " <<  chosen_column.second << std::endl;
+  std::cout << "Chosen column: " <<  chosen_column.second << std::endl;
   // std::cout << "Number of minimax calls: " << this->num_minimax_calls << std::endl;
 
   this->game->add_disk_to_column(chosen_column.second);
