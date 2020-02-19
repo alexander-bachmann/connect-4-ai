@@ -34,6 +34,8 @@ void AIPlayer::take_turn()
 
   std::cout << "Chosen column " <<  this->chosen_column << std::endl;
 
+  std::cout << "Number of minimax calls: " << this->num_minimax_calls << std::endl;
+
   this->game->add_disk_to_column(this->chosen_column);
 }
 
@@ -229,9 +231,11 @@ int AIPlayer::count_num_diagonal_wins(int player_disk_num)
 //minimizing the possible loss for a maximum loss (worst case) scenario.
 int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool maximizing_player, int alpha, int beta)
 {
+  //used to test if AB pruning was working
+  this->num_minimax_calls++;
 
   //NEED TO FIND A WAY TO KEEP TRACK OF CHOSEN COLUMN
-  //GET IT WORKING BEFORE CHECKING IF AB PRUNING WORKS
+  //GET IT WORKING BEFORE CHECKING IF AB PRUNING WORKS - pretty sure it works
 
   int eval;
 
@@ -269,6 +273,7 @@ int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool 
       }
     }
 
+    std::cout << "Max_eval: " << max_eval << std::endl;
     return max_eval;
   }
   else //is Human's turn to move
@@ -293,6 +298,7 @@ int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool 
       }
     }
 
+    std::cout << "Min_eval: " << min_eval << std::endl;
     return min_eval;
   }
 
@@ -321,7 +327,6 @@ void AIPlayer::print_all_boards(std::vector<std::vector<int>> game_board, int de
   }
 }
 
-
 int AIPlayer::min(int num_1, int num_2)
 {
   if(num_1 <= num_2)
@@ -345,31 +350,3 @@ int AIPlayer::max(int num_1, int num_2)
     return num_2;
   }
 }
-
-// if depth == 0 || is_game_over in game_board
-//   return static evaluation of game_board -- CALL heuristic_evaluation() HERE - must factor in whose turn it is when counting, probably just base it off player_one_turn
-//
-// if maximizing_player (is AIs turn to move)
-//   max_eval = -INFINITY
-//   for each child (all future game_boards one turn from now, stemming from current game_board) - columns 1 through N
-//     //this is where piece is placed in each successive column
-//
-//     eval = minimax(child_game_board, depth - 1, false)
-//     max_eval = max_value(max_eval, eval)
-//
-//     //this is where previous piece is popped
-//
-//   return max_eval
-//
-//
-// else (is human's turn to move)
-//   min_eval = +INFINITY
-//   for each child (all future game_boards one turn from now, stemming from current game_board)
-//     //this is where piece is placed in each sucessive column
-//
-//     eval = minimax(child_game_board, depth - 1, true)
-//     min_eval = min(min_eval, eval)
-//
-//     //this is where previous piece is popped
-//
-//   return min_eval

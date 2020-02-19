@@ -88,6 +88,7 @@ class AIPlayer
     int chosen_column = 0;
     int max_col = 0;
     int min_col = 0;
+    int num_minimax_calls = 0;
 
 };
 
