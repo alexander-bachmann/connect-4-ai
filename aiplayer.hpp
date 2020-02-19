@@ -85,6 +85,7 @@ class AIPlayer
     Game* game;
     int disk_num;
     int opponent_disk_num;
+    int chosen_column = 0;
 
 };
 

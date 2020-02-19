@@ -28,11 +28,13 @@ void AIPlayer::take_turn()
 {
   // print_all_boards(this->game->get_game_board(), 3);
 
-  int column = minimax(this->game->get_game_board(), 5, true, -1000, 1000);
+  int column_heuristic = minimax(this->game->get_game_board(), 3, true, -1000, 1000);
 
-  std::cout << "AI Col: " << column << std::endl;
+  std::cout << "Chosen column heuristic evaluation score: " << column_heuristic << std::endl;
 
-  this->game->add_disk_to_column(column);
+  std::cout << "Chosen column " <<  this->chosen_column << std::endl;
+
+  this->game->add_disk_to_column(this->chosen_column);
 }
 
 int AIPlayer::heuristic_evaluation(std::vector<std::vector<int>> game_board)
@@ -53,16 +55,16 @@ int AIPlayer::heuristic_evaluation(std::vector<std::vector<int>> game_board)
 
   eval = self_num_winning_moves - opponent_num_winning_moves;
 
-  if(this->game->is_game_over() == true)
-  {
-    std::cout << "---WINNING STATE FOUND---" << std::endl;
-  }
+  // if(this->game->is_game_over() == true)
+  // {
+  //   std::cout << "---WINNING STATE FOUND---" << std::endl;
+  // }
 
 
-  std::cout << "Self num winning moves: " << self_num_winning_moves << std::endl;
-  std::cout << "Opponent num winning moves: " << opponent_num_winning_moves << std::endl;
-
-  std::cout << "Heuristic evaluation of board: " << eval << std::endl;
+  // std::cout << "Self num winning moves: " << self_num_winning_moves << std::endl;
+  // std::cout << "Opponent num winning moves: " << opponent_num_winning_moves << std::endl;
+  //
+  // std::cout << "Heuristic evaluation of board: " << eval << std::endl;
 
   return eval;
 }
@@ -227,17 +229,21 @@ int AIPlayer::count_num_diagonal_wins(int player_disk_num)
 //minimizing the possible loss for a maximum loss (worst case) scenario.
 int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool maximizing_player, int alpha, int beta)
 {
+
+  //NEED TO FIND A WAY TO KEEP TRACK OF CHOSEN COLUMN
+  //GET IT WORKING BEFORE CHECKING IF AB PRUNING WORKS
+
   int eval;
 
-  this->game->print_board();
+  // std::cout << "Alpha: " << alpha << std::endl;
+  // std::cout << "Beta: " << beta << std::endl;
+  //
+  //this->game->print_board();
 
   if(depth == 0 || this->game->is_game_over() == true)
   {
-    if(this->game->is_game_over() == true)
-    {
-      std::cout << "---WINNING STATE FOUND---" << std::endl;
-    }
-
+    //NEED TO CARE ABOUT WHO WON
+    //this->game->print_board();
     return heuristic_evaluation(game_board);
   }
 
@@ -253,13 +259,13 @@ int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool 
       {
         eval = minimax(game_board, depth - 1, false, alpha, beta);
         max_eval = max(max_eval, eval);
-        alpha = max(alpha, eval);
+        // alpha = max(alpha, eval);
         this->game->pop_from_column(i);
 
-        if(beta <= alpha)
-        {
-          break;
-        }
+        // if(beta <= alpha)
+        // {
+        //   break;
+        // }
       }
     }
 
@@ -277,13 +283,13 @@ int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool 
       {
         eval = minimax(game_board, depth - 1, true, alpha, beta);
         min_eval = min(min_eval, eval);
-        beta = min(beta, eval);
+        // beta = min(beta, eval);
         this->game->pop_from_column(i);
 
-        if(beta <= alpha)
-        {
-          break;
-        }
+        // if(beta <= alpha)
+        // {
+        //   break;
+        // }
       }
     }
 
