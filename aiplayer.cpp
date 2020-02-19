@@ -27,25 +27,26 @@ AIPlayer::AIPlayer(Game* game, int disk_num)
 void AIPlayer::take_turn()
 {
   // print_all_boards(this->game->get_game_board(), 3);
+  std::pair<int, int> alpha(-1000, 0);
+  std::pair<int, int> beta(1000, 0);
 
-  int column_heuristic = minimax(this->game->get_game_board(), 3, true, -1000, 1000);
+  std::pair<int, int> chosen_column = minimax(this->game->get_game_board(), 3, true, alpha, beta);
 
-  std::cout << "Chosen column heuristic evaluation score: " << column_heuristic << std::endl;
+  // std::cout << "Chosen column heuristic evaluation score: " << chosen_column.first << std::endl;
+  // std::cout << "Chosen column " <<  chosen_column.second << std::endl;
+  // std::cout << "Number of minimax calls: " << this->num_minimax_calls << std::endl;
 
-  std::cout << "Chosen column " <<  this->chosen_column << std::endl;
-
-  std::cout << "Number of minimax calls: " << this->num_minimax_calls << std::endl;
-
-  this->game->add_disk_to_column(this->chosen_column);
+  this->game->add_disk_to_column(chosen_column.second);
 }
 
-int AIPlayer::heuristic_evaluation(std::vector<std::vector<int>> game_board)
+
+std::pair<int, int> AIPlayer::heuristic_evaluation(std::vector<std::vector<int>> game_board)
 {
   //TODO TO MAKE IT BETTER
   //check if a move results in a winning state for either player
   //favor longer rows
 
-  int eval;
+  std::pair<int, int> eval;
   int self_num_winning_moves = 0;
   int opponent_num_winning_moves = 0;
 
@@ -55,18 +56,21 @@ int AIPlayer::heuristic_evaluation(std::vector<std::vector<int>> game_board)
   self_num_winning_moves = count_num_horizontal_wins(this->disk_num) + count_num_vertical_wins(this->disk_num) + count_num_diagonal_wins(this->disk_num);
   opponent_num_winning_moves = count_num_horizontal_wins(this->opponent_disk_num) + count_num_vertical_wins(this->opponent_disk_num) + count_num_diagonal_wins(this->opponent_disk_num);
 
-  eval = self_num_winning_moves - opponent_num_winning_moves;
+  eval.first = self_num_winning_moves - opponent_num_winning_moves;
+  eval.second = this->current_first_turn_branch;
 
-  // if(this->game->is_game_over() == true)
-  // {
-  //   std::cout << "---WINNING STATE FOUND---" << std::endl;
-  // }
+  // this->heuristic_branch_pair_vector.push_back(std::make_pair(this->current_column, eval));
+
+  if(this->game->is_game_over() == true)
+  {
+    std::cout << "---WINNING STATE FOUND---" << std::endl;
+  }
 
 
   // std::cout << "Self num winning moves: " << self_num_winning_moves << std::endl;
   // std::cout << "Opponent num winning moves: " << opponent_num_winning_moves << std::endl;
   //
-   std::cout << "Heuristic evaluation of board: " << eval << std::endl;
+   // std::cout << "Heuristic evaluation of board: " << eval.first << std::endl;
 
   return eval;
 }
@@ -228,8 +232,14 @@ int AIPlayer::count_num_diagonal_wins(int player_disk_num)
   return num_wins;
 }
 
+/*
+std::pair<int, int> -- heuristic eval, first branch
+
+
+*/
+
 //minimizing the possible loss for a maximum loss (worst case) scenario.
-int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool maximizing_player, int alpha, int beta)
+std::pair<int, int> AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool maximizing_player, std::pair<int, int> alpha, std::pair<int, int> beta)
 {
   //used to test if AB pruning was working
   this->num_minimax_calls++;
@@ -237,7 +247,7 @@ int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool 
   //NEED TO FIND A WAY TO KEEP TRACK OF CHOSEN COLUMN
   //GET IT WORKING BEFORE CHECKING IF AB PRUNING WORKS - pretty sure it works
 
-  int eval;
+  std::pair<int, int> eval;
 
   // std::cout << "Alpha: " << alpha << std::endl;
   // std::cout << "Beta: " << beta << std::endl;
@@ -247,13 +257,13 @@ int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool 
   if(depth == 0 || this->game->is_game_over() == true)
   {
     //NEED TO CARE ABOUT WHO WON
-    this->game->print_board();
+    //this->game->print_board();
     return heuristic_evaluation(game_board);
   }
 
   if(maximizing_player == true) //is AI's turn to move
   {
-    int max_eval = -1000;
+    std::pair<int, int> max_eval(-1000, 0);
 
     for(int i = 1; i <= this->game->get_n(); ++i)
     {
@@ -261,24 +271,31 @@ int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool 
 
       if(successful_add == true)
       {
+
+        if(depth == 3)
+        {
+          this->current_first_turn_branch = i;
+          // std::cout << "First turn from max's side" << std::endl;
+        }
+
         eval = minimax(game_board, depth - 1, false, alpha, beta);
         max_eval = max(max_eval, eval);
-        // alpha = max(alpha, eval);
+        alpha = max(alpha, eval);
         this->game->pop_from_column(i);
 
-        // if(beta <= alpha)
-        // {
-        //   break;
-        // }
+        if(beta.first <= alpha.first)
+        {
+          break;
+        }
       }
     }
 
-    std::cout << "Max_eval: " << max_eval << std::endl;
+    // std::cout << "max eval " << max_eval.first << " from branch " << max_eval.second << std::endl;
     return max_eval;
   }
   else //is Human's turn to move
   {
-    int min_eval = 1000;
+    std::pair<int, int> min_eval(1000, 0);
 
     for(int i = 1; i <= this->game->get_n(); ++i)
     {
@@ -286,19 +303,24 @@ int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool 
 
       if(successful_add == true)
       {
+        // if(depth == 3)
+        // {
+        //   std::cout << "First turn from min's side" << std::endl;
+        // }
+
         eval = minimax(game_board, depth - 1, true, alpha, beta);
         min_eval = min(min_eval, eval);
-        // beta = min(beta, eval);
+        beta = min(beta, eval);
         this->game->pop_from_column(i);
 
-        // if(beta <= alpha)
-        // {
-        //   break;
-        // }
+        if(beta.first <= alpha.first)
+        {
+          break;
+        }
       }
     }
 
-    std::cout << "Min_eval: " << min_eval << std::endl;
+    // std::cout << "min eval " << min_eval.first << " from branch " << min_eval.second << std::endl;
     return min_eval;
   }
 
@@ -327,9 +349,9 @@ void AIPlayer::print_all_boards(std::vector<std::vector<int>> game_board, int de
   }
 }
 
-int AIPlayer::min(int num_1, int num_2)
+std::pair<int, int> AIPlayer::min(std::pair<int, int> num_1, std::pair<int, int> num_2)
 {
-  if(num_1 <= num_2)
+  if(num_1.first <= num_2.first)
   {
     return num_1;
   }
@@ -339,9 +361,9 @@ int AIPlayer::min(int num_1, int num_2)
   }
 }
 
-int AIPlayer::max(int num_1, int num_2)
+std::pair<int, int> AIPlayer::max(std::pair<int, int> num_1, std::pair<int, int> num_2)
 {
-  if(num_1 >= num_2)
+  if(num_1.first >= num_2.first)
   {
     return num_1;
   }

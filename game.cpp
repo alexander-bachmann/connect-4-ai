@@ -245,17 +245,17 @@ bool Game::check_all_wins(int j)
 {
   if(check_vertical_win(j) == true)
   {
-    std::cout << "You win vertically!" << std::endl;
+    // std::cout << "You win vertically!" << std::endl;
     return true;
   }
   else if(check_horizontal_win(j) == true)
   {
-    std::cout << "You win horizontally!" << std::endl;
+    // std::cout << "You win horizontally!" << std::endl;
     return true;
   }
   else if(check_diagonal_win(j) == true)
   {
-    std::cout << "You win diagonally!" << std::endl;
+    // std::cout << "You win diagonally!" << std::endl;
     return true;
   }
   return false;
@@ -314,13 +314,13 @@ bool Game::add_disk_to_column(int j)
 
     if (!validSlotFound)
     {
-      std::cout << "Invalid column: Column full."  << std::endl;
+      // std::cout << "Invalid column: Column full."  << std::endl;
       return false;
     }
   }
   else
   {
-    std::cout << "Invalid column: out of range" << std::endl;
+    // std::cout << "Invalid column: out of range" << std::endl;
     return false;
   }
 
