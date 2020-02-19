@@ -24,6 +24,9 @@ class Game
 
     int get_n();
     int get_m();
+    int get_winning_disk_num();
+
+
     // bool is_game_over(); // MAKE THIS, JUST COPY CHECK_ALL_WINS
     void pop_most_recent_move(); //KEEP TRACK OF MOST RECENT ROW AND COLUMN WHEN A MOVE IS MADE
     //MUST CHANGE BACK THE TURN WHEN THE MOST RECENT MOVE IS POPPED
@@ -40,6 +43,14 @@ class Game
     int num_disks; //number of disks that have been played (used to stop game if no winner)
     bool player_one_turn; //rotation of turns
     bool game_over;
+
+    int winning_disk_num = 0;
+    /*
+      -1 = board has been filled with no winners
+      0 = no current winners
+      1 = player 1 has won
+      2 = player 2 has won
+    */
 
     int most_recent_row;
     int most_recent_col;

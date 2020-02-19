@@ -53,9 +53,21 @@ int main()
   do {
 
     player1.take_turn();
+    if(game.is_game_over())
+    {
+      std::cout << "Player 1 wins!" << std::endl;
+      game.print_board();
+      return 0;
+    }
     game.print_board();
 
     player2.take_turn();
+    if(game.is_game_over())
+    {
+      std::cout << "Player 2 wins!" << std::endl;
+      game.print_board();
+      return 0;
+    }
     game.print_board();
 
   } while(!game.is_game_over());

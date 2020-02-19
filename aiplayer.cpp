@@ -29,8 +29,7 @@ void AIPlayer::take_turn()
   // print_all_boards(this->game->get_game_board(), 3);
   std::pair<int, int> alpha(-1000, 0);
   std::pair<int, int> beta(1000, 0);
-
-  std::pair<int, int> chosen_column = minimax(this->game->get_game_board(), 3, true, alpha, beta);
+  std::pair<int, int> chosen_column = minimax(this->game->get_game_board(), 5, true, alpha, beta);
 
   // std::cout << "Chosen column heuristic evaluation score: " << chosen_column.first << std::endl;
   // std::cout << "Chosen column " <<  chosen_column.second << std::endl;
@@ -63,7 +62,23 @@ std::pair<int, int> AIPlayer::heuristic_evaluation(std::vector<std::vector<int>>
 
   if(this->game->is_game_over() == true)
   {
-    std::cout << "---WINNING STATE FOUND---" << std::endl;
+    if(this->disk_num == this->game->get_winning_disk_num())
+    {
+      // std::cout << "---WINNING STATE FOUND---" << std::endl;
+      eval.first = 1000;
+    }
+    else if(this->disk_num != this->game->get_winning_disk_num())
+    {
+      if((this->disk_num == 1 && this->game->get_winning_disk_num() == 2) || (this->disk_num == 2 && this->game->get_winning_disk_num() == 1))
+      {
+        // std::cout << "---LOSING STATE FOUND---" << std::endl;
+        eval.first = -1001;
+      }
+      else
+      {
+        // std::cout << "---BOARD HAS BEEN FILLED---" << std::endl;
+      }
+    }
   }
 
 
@@ -244,7 +259,7 @@ std::pair<int, int> AIPlayer::minimax(std::vector<std::vector<int>> game_board, 
   //used to test if AB pruning was working
   this->num_minimax_calls++;
 
-  //NEED TO FIND A WAY TO KEEP TRACK OF CHOSEN COLUMN
+  //USE PAIRS TO KEEP TRACK OF BRANCH ONE FROM ROOT
   //GET IT WORKING BEFORE CHECKING IF AB PRUNING WORKS - pretty sure it works
 
   std::pair<int, int> eval;
@@ -272,7 +287,7 @@ std::pair<int, int> AIPlayer::minimax(std::vector<std::vector<int>> game_board, 
       if(successful_add == true)
       {
 
-        if(depth == 3)
+        if(depth == 5)
         {
           this->current_first_turn_branch = i;
           // std::cout << "First turn from max's side" << std::endl;

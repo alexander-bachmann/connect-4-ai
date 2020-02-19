@@ -99,6 +99,7 @@ bool Game::is_game_over()
 {
   if(this->num_disks == (this->n * this->n))
   {
+    this->winning_disk_num = -1; 
     return true;
   }
 
@@ -288,6 +289,7 @@ bool Game::add_disk_to_column(int j)
           if(check_all_wins(j) == true)
           {
             this->game_over = true;
+            this->winning_disk_num = 1;
             //return;
           }
           break;
@@ -305,6 +307,7 @@ bool Game::add_disk_to_column(int j)
           if(check_all_wins(j) == true)
           {
             this->game_over = true;
+            this->winning_disk_num = 2;
             //return;
           }
           break;
@@ -347,6 +350,7 @@ void Game::pop_from_column(int j)
     {
       this->game_over = false;
       this->num_disks--;
+      this->winning_disk_num = 0;
       player_one_turn = !player_one_turn;
       this->game_board[i][j] = 0;
       return;
@@ -396,6 +400,11 @@ int Game::get_n()
 int Game::get_m()
 {
   return this->m;
+}
+
+int Game::get_winning_disk_num()
+{
+  return this->winning_disk_num;
 }
 
 std::vector<std::vector<int>> Game::get_game_board()
