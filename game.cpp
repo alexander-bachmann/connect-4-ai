@@ -99,7 +99,7 @@ bool Game::is_game_over()
 {
   if(this->num_disks == (this->n * this->n))
   {
-    this->winning_disk_num = -1; 
+    this->winning_disk_num = -1;
     return true;
   }
 
@@ -323,7 +323,7 @@ bool Game::add_disk_to_column(int j)
   }
   else
   {
-    // std::cout << "Invalid column: out of range" << std::endl;
+    std::cout << "Invalid column: out of range -- tried to insert into " << j << std::endl;
     return false;
   }
 

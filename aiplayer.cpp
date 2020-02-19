@@ -27,12 +27,12 @@ AIPlayer::AIPlayer(Game* game, int disk_num)
 void AIPlayer::take_turn()
 {
   // print_all_boards(this->game->get_game_board(), 3);
-  std::pair<int, int> alpha(-1000, 0);
-  std::pair<int, int> beta(1000, 0);
+  std::pair<int, int> alpha(-1000000, 0);
+  std::pair<int, int> beta(1000000, 0);
   std::pair<int, int> chosen_column = minimax(this->game->get_game_board(), 5, true, alpha, beta);
 
-  // std::cout << "Chosen column heuristic evaluation score: " << chosen_column.first << std::endl;
-  // std::cout << "Chosen column " <<  chosen_column.second << std::endl;
+  std::cout << "Chosen column heuristic evaluation score: " << chosen_column.first << std::endl;
+  std::cout << "Chosen column " <<  chosen_column.second << std::endl;
   // std::cout << "Number of minimax calls: " << this->num_minimax_calls << std::endl;
 
   this->game->add_disk_to_column(chosen_column.second);
@@ -65,14 +65,14 @@ std::pair<int, int> AIPlayer::heuristic_evaluation(std::vector<std::vector<int>>
     if(this->disk_num == this->game->get_winning_disk_num())
     {
       // std::cout << "---WINNING STATE FOUND---" << std::endl;
-      eval.first = 1000;
+      eval.first = 10000;
     }
     else if(this->disk_num != this->game->get_winning_disk_num())
     {
       if((this->disk_num == 1 && this->game->get_winning_disk_num() == 2) || (this->disk_num == 2 && this->game->get_winning_disk_num() == 1))
       {
         // std::cout << "---LOSING STATE FOUND---" << std::endl;
-        eval.first = -1001;
+        eval.first = -10001;
       }
       else
       {
@@ -278,7 +278,7 @@ std::pair<int, int> AIPlayer::minimax(std::vector<std::vector<int>> game_board, 
 
   if(maximizing_player == true) //is AI's turn to move
   {
-    std::pair<int, int> max_eval(-1000, 0);
+    std::pair<int, int> max_eval(-1000000, 0);
 
     for(int i = 1; i <= this->game->get_n(); ++i)
     {
@@ -310,7 +310,7 @@ std::pair<int, int> AIPlayer::minimax(std::vector<std::vector<int>> game_board, 
   }
   else //is Human's turn to move
   {
-    std::pair<int, int> min_eval(1000, 0);
+    std::pair<int, int> min_eval(1000000, 0);
 
     for(int i = 1; i <= this->game->get_n(); ++i)
     {
