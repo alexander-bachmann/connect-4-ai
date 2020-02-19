@@ -64,7 +64,7 @@ int AIPlayer::heuristic_evaluation(std::vector<std::vector<int>> game_board)
   // std::cout << "Self num winning moves: " << self_num_winning_moves << std::endl;
   // std::cout << "Opponent num winning moves: " << opponent_num_winning_moves << std::endl;
   //
-  // std::cout << "Heuristic evaluation of board: " << eval << std::endl;
+   std::cout << "Heuristic evaluation of board: " << eval << std::endl;
 
   return eval;
 }
@@ -243,7 +243,7 @@ int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool 
   if(depth == 0 || this->game->is_game_over() == true)
   {
     //NEED TO CARE ABOUT WHO WON
-    //this->game->print_board();
+    this->game->print_board();
     return heuristic_evaluation(game_board);
   }
 

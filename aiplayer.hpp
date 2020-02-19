@@ -86,6 +86,8 @@ class AIPlayer
     int disk_num;
     int opponent_disk_num;
     int chosen_column = 0;
+    int max_col = 0;
+    int min_col = 0;
 
 };
 
