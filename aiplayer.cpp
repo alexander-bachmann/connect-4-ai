@@ -26,11 +26,9 @@ AIPlayer::AIPlayer(Game* game, int disk_num)
 
 void AIPlayer::take_turn()
 {
-  print_all_boards(this->game->get_game_board(), 3);
-  this->game->print_board();
+  // print_all_boards(this->game->get_game_board(), 3);
 
-
-  int column = minimax(this->game->get_game_board(), 3, true, -1000, 1000);
+  int column = minimax(this->game->get_game_board(), 5, true, -1000, 1000);
 
   std::cout << "AI Col: " << column << std::endl;
 
@@ -47,12 +45,19 @@ int AIPlayer::heuristic_evaluation(std::vector<std::vector<int>> game_board)
   int self_num_winning_moves = 0;
   int opponent_num_winning_moves = 0;
 
+
   //count the number of possible winning paths remaining
   //and subtract that from opponents number of winning paths remaining
   self_num_winning_moves = count_num_horizontal_wins(this->disk_num) + count_num_vertical_wins(this->disk_num) + count_num_diagonal_wins(this->disk_num);
   opponent_num_winning_moves = count_num_horizontal_wins(this->opponent_disk_num) + count_num_vertical_wins(this->opponent_disk_num) + count_num_diagonal_wins(this->opponent_disk_num);
 
   eval = self_num_winning_moves - opponent_num_winning_moves;
+
+  if(this->game->is_game_over() == true)
+  {
+    std::cout << "---WINNING STATE FOUND---" << std::endl;
+  }
+
 
   std::cout << "Self num winning moves: " << self_num_winning_moves << std::endl;
   std::cout << "Opponent num winning moves: " << opponent_num_winning_moves << std::endl;
@@ -224,14 +229,15 @@ int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool 
 {
   int eval;
 
-  //this->game->print_board();
+  this->game->print_board();
 
-  //TODO - is_game_over
-
-  //maybe use modulus for interating each board column col++, col % n
-
-  if(depth == 0 /*|| is_game_over*/)
+  if(depth == 0 || this->game->is_game_over() == true)
   {
+    if(this->game->is_game_over() == true)
+    {
+      std::cout << "---WINNING STATE FOUND---" << std::endl;
+    }
+
     return heuristic_evaluation(game_board);
   }
 
@@ -241,24 +247,23 @@ int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool 
 
     for(int i = 1; i <= this->game->get_n(); ++i)
     {
-      this->game->add_disk_to_column(i);
+      bool successful_add = this->game->add_disk_to_column(i);
 
-      eval = minimax(game_board, depth - 1, false, alpha, beta);
-      max_eval = max(max_eval, eval);
-
-      alpha = max(alpha, eval);
-      ///this->game->pop_most_recent_move();
-      this->game->pop_from_column(i);
-
-      if(beta <= alpha)
+      if(successful_add == true)
       {
-        break;
+        eval = minimax(game_board, depth - 1, false, alpha, beta);
+        max_eval = max(max_eval, eval);
+        alpha = max(alpha, eval);
+        this->game->pop_from_column(i);
+
+        if(beta <= alpha)
+        {
+          break;
+        }
       }
     }
 
     return max_eval;
-
-
   }
   else //is Human's turn to move
   {
@@ -266,55 +271,29 @@ int AIPlayer::minimax(std::vector<std::vector<int>> game_board, int depth, bool 
 
     for(int i = 1; i <= this->game->get_n(); ++i)
     {
-      this->game->add_disk_to_column(i);
+      bool successful_add = this->game->add_disk_to_column(i);
 
-      eval = minimax(game_board, depth - 1, true, alpha, beta);
-
-      min_eval = min(min_eval, eval);
-      beta = min(beta, eval);
-
-      //this->game->pop_most_recent_move();
-      this->game->pop_from_column(i);
-
-      if(beta <= alpha)
+      if(successful_add == true)
       {
-        break;
-      }
+        eval = minimax(game_board, depth - 1, true, alpha, beta);
+        min_eval = min(min_eval, eval);
+        beta = min(beta, eval);
+        this->game->pop_from_column(i);
 
+        if(beta <= alpha)
+        {
+          break;
+        }
+      }
     }
 
     return min_eval;
   }
 
-  // if depth == 0 || is_game_over in game_board
-  //   return static evaluation of game_board -- CALL heuristic_evaluation() HERE - must factor in whose turn it is when counting, probably just base it off player_one_turn
-  //
-  // if maximizing_player (is AIs turn to move)
-  //   max_eval = -INFINITY
-  //   for each child (all future game_boards one turn from now, stemming from current game_board) - columns 1 through N
-  //     //this is where piece is placed in each successive column
-  //
-  //     eval = minimax(child_game_board, depth - 1, false)
-  //     max_eval = max_value(max_eval, eval)
-  //
-  //     //this is where previous piece is popped
-  //
-  //   return max_eval
-  //
-  //
-  // else (is human's turn to move)
-  //   min_eval = +INFINITY
-  //   for each child (all future game_boards one turn from now, stemming from current game_board)
-  //     //this is where piece is placed in each sucessive column
-  //
-  //     eval = minimax(child_game_board, depth - 1, true)
-  //     min_eval = min(min_eval, eval)
-  //
-  //     //this is where previous piece is popped
-  //
-  //   return min_eval
+
 }
 
+//used to test that the boards can be printed recursively
 void AIPlayer::print_all_boards(std::vector<std::vector<int>> game_board, int depth)
 {
   this->game->print_board();
@@ -360,3 +339,31 @@ int AIPlayer::max(int num_1, int num_2)
     return num_2;
   }
 }
+
+// if depth == 0 || is_game_over in game_board
+//   return static evaluation of game_board -- CALL heuristic_evaluation() HERE - must factor in whose turn it is when counting, probably just base it off player_one_turn
+//
+// if maximizing_player (is AIs turn to move)
+//   max_eval = -INFINITY
+//   for each child (all future game_boards one turn from now, stemming from current game_board) - columns 1 through N
+//     //this is where piece is placed in each successive column
+//
+//     eval = minimax(child_game_board, depth - 1, false)
+//     max_eval = max_value(max_eval, eval)
+//
+//     //this is where previous piece is popped
+//
+//   return max_eval
+//
+//
+// else (is human's turn to move)
+//   min_eval = +INFINITY
+//   for each child (all future game_boards one turn from now, stemming from current game_board)
+//     //this is where piece is placed in each sucessive column
+//
+//     eval = minimax(child_game_board, depth - 1, true)
+//     min_eval = min(min_eval, eval)
+//
+//     //this is where previous piece is popped
+//
+//   return min_eval

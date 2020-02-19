@@ -329,6 +329,7 @@ bool Game::add_disk_to_column(int j)
 
 }
 
+//CAN PROBABLY DELETE
 void Game::pop_most_recent_move()
 {
   this->game_board[this->most_recent_row][this->most_recent_col] = 0;
@@ -401,7 +402,3 @@ std::vector<std::vector<int>> Game::get_game_board()
 {
   return this->game_board;
 }
-
-/*
-privatize methods that are only ever called within the class (win checks)
-*/
