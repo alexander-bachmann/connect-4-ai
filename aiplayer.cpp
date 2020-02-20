@@ -29,7 +29,7 @@ void AIPlayer::take_turn()
   // print_all_boards(this->game->get_game_board(), 3);
   std::pair<int, int> alpha(-1000000, 0);
   std::pair<int, int> beta(1000000, 0);
-  std::pair<int, int> chosen_column = minimax(this->game->get_game_board(), 3, true, alpha, beta);
+  std::pair<int, int> chosen_column = minimax(this->game->get_game_board(), 4, true, alpha, beta);
 
   std::cout << "Chosen column heuristic evaluation score: " << chosen_column.first << std::endl;
   std::cout << "Chosen column: " <<  chosen_column.second << std::endl;
@@ -287,7 +287,7 @@ std::pair<int, int> AIPlayer::minimax(std::vector<std::vector<int>> game_board, 
       if(successful_add == true)
       {
 
-        if(depth == 3)
+        if(depth == 4)
         {
           this->current_first_turn_branch = i;
           // std::cout << "First turn from max's side" << std::endl;

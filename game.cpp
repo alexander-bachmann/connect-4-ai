@@ -79,6 +79,16 @@ void Game::print_board()
   board_state.append("+");
   board_state.append("\n");
 
+  for(int j = 0; j < this->n; ++j)
+  {
+    board_state.append("| ");
+    board_state.append(std::to_string(j + 1));
+    board_state.append(" ");
+  }
+
+  board_state.append("|");
+  board_state.append("\n");
+
   std::cout << board_state << std::endl;
 }
 
