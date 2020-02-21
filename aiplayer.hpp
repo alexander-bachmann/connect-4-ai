@@ -71,6 +71,7 @@ class AIPlayer
     int max_col = 0;
     int min_col = 0;
     int num_minimax_calls = 0;
+    int num_boards_explored = 0;
 
     std::vector<std::pair<int, int>> heuristic_branch_pair_vector;
 

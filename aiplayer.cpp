@@ -26,13 +26,19 @@ AIPlayer::AIPlayer(Game* game, int disk_num)
 
 void AIPlayer::take_turn()
 {
+
+  this->num_boards_explored = 0;
+
   // print_all_boards(this->game->get_game_board(), 3);
   std::pair<int, int> alpha(-1000000, 0);
   std::pair<int, int> beta(1000000, 0);
   std::pair<int, int> chosen_column = minimax(this->game->get_game_board(), 4, true, alpha, beta);
 
+
+
   std::cout << "Chosen column heuristic evaluation score: " << chosen_column.first << std::endl;
   std::cout << "Chosen column: " <<  chosen_column.second << std::endl;
+  std::cout << "Number of boards explored: " << this->num_boards_explored << std::endl;
   // std::cout << "Number of minimax calls: " << this->num_minimax_calls << std::endl;
 
   this->game->add_disk_to_column(chosen_column.second);
@@ -273,6 +279,7 @@ std::pair<int, int> AIPlayer::minimax(std::vector<std::vector<int>> game_board, 
   {
     //NEED TO CARE ABOUT WHO WON
     //this->game->print_board();
+    this->num_boards_explored++;
     return heuristic_evaluation(game_board);
   }
 
@@ -295,13 +302,13 @@ std::pair<int, int> AIPlayer::minimax(std::vector<std::vector<int>> game_board, 
 
         eval = minimax(game_board, depth - 1, false, alpha, beta);
         max_eval = max(max_eval, eval);
-        alpha = max(alpha, eval);
+            alpha = max(alpha, eval);
         this->game->pop_from_column(i);
 
-        if(beta.first <= alpha.first)
-        {
-          break;
-        }
+            if(beta.first <= alpha.first)
+            {
+              break;
+            }
       }
     }
 
@@ -321,13 +328,13 @@ std::pair<int, int> AIPlayer::minimax(std::vector<std::vector<int>> game_board, 
 
         eval = minimax(game_board, depth - 1, true, alpha, beta);
         min_eval = min(min_eval, eval);
-        beta = min(beta, eval);
+            beta = min(beta, eval);
         this->game->pop_from_column(i);
 
-        if(beta.first <= alpha.first)
-        {
-          break;
-        }
+            if(beta.first <= alpha.first)
+            {
+              break;
+            }
       }
     }
 
