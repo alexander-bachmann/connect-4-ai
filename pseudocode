@@ -1,0 +1,68 @@
+reasoning for using std::pair - keep track of the branch one from the root
+
+
+
+take_turn():
+  init alpha pair
+  init beta pair
+
+  call minimax to return the column the AI will choose and the heuristic value associated with that column
+  add the disk to the column that the AI has chosen
+
+
+
+
+pair<int, int> heuristic_evaluation(game_board):
+  heuristic_value = AIs_num_possible_wins - humans_num_possible_wins
+    (the AI chooses moves that give it more winning options)
+
+  if the game is over (some game in the future but is the current game state being explored)
+    if winning state found for AI, return 10,000 (large positive heuristic value)
+
+    if winning state found for human, return -10,001 (large negative heuristic value)
+
+
+
+
+PARAMETERS:
+game_board - int vector[][] represents the current state of the game
+depth - how many turns the AI should look ahead, how deep within the tree
+maximizing_player - boolean value to change turns as the tree is traversed
+
+
+pair<int, int> minimax(game_board, depth, maximizing_player, alpha, beta):
+
+  if depth == 0 (have arrived at the desired turn into the future to look) or game is over:
+    return heuristic_evaluation of current_board (future board)
+
+  if maximizing_player == true: (is AI's turn to move)
+
+    init max_eval
+
+    for each column
+      add disk to column
+
+      if add was successful (column wasn't full)
+        eval = minimax() -- change depth and turn
+        calc best choices (calc alpha)
+
+      pop disk from column (happens as coming out of the tree)
+
+      if(beta <= alpha)
+        prune (break)
+
+  else: (is Human's turn to move)
+
+    init min_eval
+
+    for each column
+      add disk to column
+
+      if add was successful (column wasn't full)
+        eval = minimax() -- change depth and turn
+        calc best choices (calc beta)
+
+      pop disk from column (happens as coming out of the tree)
+
+      if(beta <= alpha)
+        prune (break)

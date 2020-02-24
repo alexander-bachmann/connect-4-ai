@@ -265,9 +265,6 @@ std::pair<int, int> AIPlayer::minimax(std::vector<std::vector<int>> game_board, 
   //used to test if AB pruning was working
   this->num_minimax_calls++;
 
-  //USE PAIRS TO KEEP TRACK OF BRANCH ONE FROM ROOT
-  //GET IT WORKING BEFORE CHECKING IF AB PRUNING WORKS - pretty sure it works
-
   std::pair<int, int> eval;
 
   // std::cout << "Alpha: " << alpha << std::endl;
@@ -277,7 +274,6 @@ std::pair<int, int> AIPlayer::minimax(std::vector<std::vector<int>> game_board, 
 
   if(depth == 0 || this->game->is_game_over() == true)
   {
-    //NEED TO CARE ABOUT WHO WON
     //this->game->print_board();
     this->num_boards_explored++;
     return heuristic_evaluation(game_board);
@@ -302,13 +298,13 @@ std::pair<int, int> AIPlayer::minimax(std::vector<std::vector<int>> game_board, 
 
         eval = minimax(game_board, depth - 1, false, alpha, beta);
         max_eval = max(max_eval, eval);
-            alpha = max(alpha, eval);
+        alpha = max(alpha, eval);
         this->game->pop_from_column(i);
 
-            if(beta.first <= alpha.first)
-            {
-              break;
-            }
+        if(beta.first <= alpha.first)
+        {
+          break;
+        }
       }
     }
 
@@ -328,13 +324,13 @@ std::pair<int, int> AIPlayer::minimax(std::vector<std::vector<int>> game_board, 
 
         eval = minimax(game_board, depth - 1, true, alpha, beta);
         min_eval = min(min_eval, eval);
-            beta = min(beta, eval);
+        beta = min(beta, eval);
         this->game->pop_from_column(i);
 
-            if(beta.first <= alpha.first)
-            {
-              break;
-            }
+        if(beta.first <= alpha.first)
+        {
+          break;
+        }
       }
     }
 
