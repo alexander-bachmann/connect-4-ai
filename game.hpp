@@ -1,8 +1,6 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
-//#include "humanplayer.hpp"
-//#include "aiplayer.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -12,11 +10,14 @@ class Game
   public:
     Game();
     Game(int, int);
-    void generate_board(); //initialize empty board
+    void generate_board();
     void print_board(); //prints ASCII board
-    void print_int_board(); //prints actual vector[][] values
-    bool is_game_over(); //checks if winning board state has been reached
-    bool add_disk_to_column(int); //int - column number to drop disk in
+    void print_int_board(); //prints actual vector[][] int values
+    bool is_game_over();
+
+    bool add_disk_to_column(int);
+    void pop_from_column(int);
+
     bool check_vertical_win(int);
     bool check_horizontal_win(int);
     bool check_diagonal_win(int);
@@ -26,15 +27,7 @@ class Game
     int get_m();
     int get_winning_disk_num();
 
-
-    // bool is_game_over(); // MAKE THIS, JUST COPY CHECK_ALL_WINS
-    void pop_most_recent_move(); //KEEP TRACK OF MOST RECENT ROW AND COLUMN WHEN A MOVE IS MADE
-    //MUST CHANGE BACK THE TURN WHEN THE MOST RECENT MOVE IS POPPED
-    void pop_from_column(int);
-
     std::vector<std::vector<int>> get_game_board();
-
-
 
   private:
     int n; //row and column length
@@ -51,7 +44,6 @@ class Game
       1 = player 1 has won
       2 = player 2 has won
     */
-
     int most_recent_row;
     int most_recent_col;
 

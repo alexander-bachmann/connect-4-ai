@@ -339,15 +339,6 @@ bool Game::add_disk_to_column(int j)
 
   return true;
   // player_one_turn = !player_one_turn;
-
-}
-
-//CAN PROBABLY DELETE
-void Game::pop_most_recent_move()
-{
-  this->game_board[this->most_recent_row][this->most_recent_col] = 0;
-  this->game_over = false;
-  player_one_turn = !player_one_turn;
 }
 
 void Game::pop_from_column(int j)

@@ -13,45 +13,19 @@ int main()
   std::cout << "Enter number of consectutive disks: ";
   std::cin >> m;
 
-  Game game = Game(n, m); //5x5, connect 3
+  Game game = Game(n, m);
   game.generate_board();
-
-
-  // int num_humans;
-  // //ADD INPUT VALIDATION
-  // std::cout << "Enter number of human players (0 - 2): ";
-  // std::cin >> num_humans;
-
-  // std::cout << "made it here" << std::endl;
 
   Game* gameptr = &game;
 
-  HumanPlayer player1(gameptr);
+  //HumanPlayer player1(gameptr);
   //HumanPlayer player2(gameptr);
-  //AIPlayer player1(gameptr, 1);
+  AIPlayer player1(gameptr, 1);
   AIPlayer player2(gameptr, 2);
-
-  //EVENTUALLY IMPLEMENT
-  // if(num_humans == 1)
-  // {
-  //   player1 = HumanPlayer(game);
-  //   player2 = AIPlayer(game);
-  // }
-  // else if(num_humans == 2)
-  // {
-  //   HumanPlayer player1(game);
-  //   HumanPlayer player2(game);
-  // }
-  // else if(num_humans == 0)
-  // {
-  //   AIPlayer player1(game);
-  //   AIPlayer player2(game);
-  // }
 
   game.print_board();
 
-
-  do {
+  do{
 
     player1.take_turn();
     if(game.is_game_over())
