@@ -32,18 +32,15 @@ int main()
       //if unsuccessful turn, repeat
       continue;
     }
-
     if(game.is_game_over())
     {
       std::cout << "Player 1 wins!" << std::endl;
       game.print_board();
       player1.print_moves_taken();
       player2.print_moves_taken();
-      //system("pause");
       return 0;
     }
     game.print_board();
-
 
     if(!player2.take_turn())
     {
@@ -56,7 +53,6 @@ int main()
       game.print_board();
       player1.print_moves_taken();
       player2.print_moves_taken();
-      //system("pause");
       return 0;
     }
     game.print_board();
