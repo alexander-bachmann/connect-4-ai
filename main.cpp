@@ -32,6 +32,9 @@ int main()
     {
       std::cout << "Player 1 wins!" << std::endl;
       game.print_board();
+      player1.print_moves_taken();
+      player2.print_moves_taken();
+      //system("pause");
       return 0;
     }
     game.print_board();
@@ -41,6 +44,9 @@ int main()
     {
       std::cout << "Player 2 wins!" << std::endl;
       game.print_board();
+      player1.print_moves_taken();
+      player2.print_moves_taken();
+      //system("pause");
       return 0;
     }
     game.print_board();

@@ -30,12 +30,13 @@ void AIPlayer::take_turn()
   std::pair<int, int> beta(1000000, 0);
   std::pair<int, int> chosen_column = minimax(this->game->get_game_board(), 4, true, alpha, beta);
 
-  std::cout << "Chosen column heuristic evaluation score: " << chosen_column.first << std::endl;
+  std::cout << "Board evaluation score: " << chosen_column.first << std::endl;
   std::cout << "Chosen column: " <<  chosen_column.second << std::endl;
   std::cout << "Number of boards explored: " << this->num_boards_explored << std::endl;
   // std::cout << "Number of minimax calls: " << this->num_minimax_calls << std::endl;
 
   this->game->add_disk_to_column(chosen_column.second);
+  this->moves_taken.push_back(chosen_column.second);
 }
 
 std::pair<int, int> AIPlayer::heuristic_evaluation(std::vector<std::vector<int>> game_board)
@@ -347,4 +348,24 @@ std::pair<int, int> AIPlayer::max(std::pair<int, int> num_1, std::pair<int, int>
   {
     return num_2;
   }
+}
+
+void AIPlayer::print_moves_taken()
+{
+  std::cout << "AI moves taken = [";
+
+  for(long unsigned int i = 0; i < this->moves_taken.size(); ++i)
+  {
+    if(i < this->moves_taken.size() - 1)
+    {
+      std::cout << this->moves_taken[i] << ", ";
+    }
+    else
+    {
+      std::cout << this->moves_taken[i];
+    }
+
+  }
+
+  std::cout << "]" << std::endl;
 }

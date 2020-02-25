@@ -25,6 +25,7 @@ class AIPlayer
 
     void print_all_boards(std::vector<std::vector<int>>, int);
     void take_turn();
+    void print_moves_taken();
 
   private:
     Game* game;
@@ -36,6 +37,7 @@ class AIPlayer
     int min_col = 0;
     int num_minimax_calls = 0;
     int num_boards_explored = 0;
+    std::vector<int> moves_taken;
 
     std::vector<std::pair<int, int>> heuristic_branch_pair_vector;
 };

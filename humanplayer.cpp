@@ -20,5 +20,26 @@ void HumanPlayer::take_turn()
   std::cin >> col_num;
   std::cout << std::endl;
 
+  moves_taken.push_back(col_num);
   this->game->add_disk_to_column(col_num);
+}
+
+void HumanPlayer::print_moves_taken()
+{
+  std::cout << "Human moves taken = [";
+
+  for(long unsigned int i = 0; i < this->moves_taken.size(); ++i)
+  {
+    if(i < this->moves_taken.size() - 1)
+    {
+      std::cout << this->moves_taken[i] << ", ";
+    }
+    else
+    {
+      std::cout << this->moves_taken[i];
+    }
+
+  }
+
+  std::cout << "]" << std::endl;
 }
