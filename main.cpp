@@ -27,7 +27,12 @@ int main()
 
   do{
 
-    player1.take_turn();
+    if(!player1.take_turn())
+    {
+      //if unsuccessful turn, repeat
+      continue;
+    }
+
     if(game.is_game_over())
     {
       std::cout << "Player 1 wins!" << std::endl;
@@ -39,7 +44,12 @@ int main()
     }
     game.print_board();
 
-    player2.take_turn();
+
+    if(!player2.take_turn())
+    {
+      //if unsuccessful turn, repeat
+      continue;
+    }
     if(game.is_game_over())
     {
       std::cout << "Player 2 wins!" << std::endl;

@@ -12,7 +12,7 @@ class HumanPlayer
     HumanPlayer();
     HumanPlayer(Game* game);
 
-    void take_turn();
+    bool take_turn();
     void print_moves_taken();
 
   private:

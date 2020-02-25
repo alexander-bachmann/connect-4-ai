@@ -24,7 +24,7 @@ class AIPlayer
     std::pair<int, int> minimax(std::vector<std::vector<int>>, int, bool, std::pair<int, int>, std::pair<int, int>);
 
     void print_all_boards(std::vector<std::vector<int>>, int);
-    void take_turn();
+    bool take_turn();
     void print_moves_taken();
 
   private:

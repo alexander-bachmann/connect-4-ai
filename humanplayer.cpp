@@ -12,7 +12,7 @@ HumanPlayer::HumanPlayer(Game* game)
   this->game = game;
 }
 
-void HumanPlayer::take_turn()
+bool HumanPlayer::take_turn()
 {
   int col_num;
 
@@ -21,7 +21,9 @@ void HumanPlayer::take_turn()
   std::cout << std::endl;
 
   moves_taken.push_back(col_num);
-  this->game->add_disk_to_column(col_num);
+  bool successful_add = this->game->add_disk_to_column(col_num);
+
+  return successful_add;
 }
 
 void HumanPlayer::print_moves_taken()
@@ -38,7 +40,6 @@ void HumanPlayer::print_moves_taken()
     {
       std::cout << this->moves_taken[i];
     }
-
   }
 
   std::cout << "]" << std::endl;

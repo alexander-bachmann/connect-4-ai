@@ -289,6 +289,7 @@ bool Game::add_disk_to_column(int j)
         if(player_one_turn == true)
         {
           this->game_board[i][j] = 1;
+
           player_one_turn = !player_one_turn;
           this->num_disks++;
           this->i = i;
@@ -300,7 +301,6 @@ bool Game::add_disk_to_column(int j)
           {
             this->game_over = true;
             this->winning_disk_num = 1;
-            //return;
           }
           break;
         }
@@ -318,7 +318,6 @@ bool Game::add_disk_to_column(int j)
           {
             this->game_over = true;
             this->winning_disk_num = 2;
-            //return;
           }
           break;
         }
@@ -327,18 +326,17 @@ bool Game::add_disk_to_column(int j)
 
     if (!validSlotFound)
     {
-      // std::cout << "Invalid column: Column full."  << std::endl;
+      //std::cout << "Invalid column: Column full."  << std::endl;
       return false;
     }
   }
   else
   {
-    std::cout << "Invalid column: out of range -- tried to insert into " << j << std::endl;
+    //std::cout << "Invalid column: out of range -- tried to insert into " << j << std::endl;
     return false;
   }
 
   return true;
-  // player_one_turn = !player_one_turn;
 }
 
 void Game::pop_from_column(int j)

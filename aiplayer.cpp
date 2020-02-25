@@ -22,7 +22,7 @@ AIPlayer::AIPlayer(Game* game, int disk_num)
   std::cout << "An AI has been created..." << std::endl;
 }
 
-void AIPlayer::take_turn()
+bool AIPlayer::take_turn()
 {
   this->num_boards_explored = 0;
 
@@ -35,8 +35,10 @@ void AIPlayer::take_turn()
   std::cout << "Number of boards explored: " << this->num_boards_explored << std::endl;
   // std::cout << "Number of minimax calls: " << this->num_minimax_calls << std::endl;
 
-  this->game->add_disk_to_column(chosen_column.second);
+  bool successful_add = this->game->add_disk_to_column(chosen_column.second);
   this->moves_taken.push_back(chosen_column.second);
+
+  return successful_add;
 }
 
 std::pair<int, int> AIPlayer::heuristic_evaluation(std::vector<std::vector<int>> game_board)
