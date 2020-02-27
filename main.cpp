@@ -3,15 +3,17 @@
 #include "humanplayer.hpp"
 
 #include<iostream>
+#include<cstdlib>
 
-int main()
+int main(int argc, char** argv)
 {
-  int n;
-  int m;
-  std::cout << "Enter dimension size (n x n): ";
-  std::cin >> n;
-  std::cout << "Enter number of consectutive disks: ";
-  std::cin >> m;
+  int n = std::atoi(argv[1]);
+  int m = std::atoi(argv[2]);
+
+  // std::cout << "Enter dimension size (n x n): ";
+  // std::cin >> n;
+  // std::cout << "Enter number of consectutive disks: ";
+  // std::cin >> m;
 
   Game game = Game(n, m);
   game.generate_board();

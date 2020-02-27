@@ -4,7 +4,7 @@ CXXFLAGS = -std=c++11 -Wall
 OBJECTS = game.o aiplayer.o humanplayer.o
 HEADERS = $(shell find . -path ./test -prune -o -name "*.hpp" -print)
 
-main: main.o $(OBJECTS)
+connectM: main.o $(OBJECTS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 game.o: game.hpp game.cpp
@@ -19,4 +19,4 @@ humanplayer.o: humanplayer.hpp humanplayer.cpp
 $(OBJECTS): $(HEADERS)
 
 clean:
-	$(RM) *.o *.gch core main test/TestCase
+	$(RM) *.o *.gch core connectM test/TestCase

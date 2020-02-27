@@ -15,7 +15,7 @@ Game::Game(int n, int m)
 
 void Game::generate_board()
 {
-  std::cout << "Generating board..." << std::endl;
+  // std::cout << "Generating board..." << std::endl;
 
   //resizing the board based off of n
   this->game_board.resize(this->n);

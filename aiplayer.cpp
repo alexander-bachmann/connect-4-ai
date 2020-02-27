@@ -2,7 +2,7 @@
 
 AIPlayer::AIPlayer()
 {
-  std::cout << "An AI has been created..." << std::endl;
+  // std::cout << "An AI has been created..." << std::endl;
 }
 
 AIPlayer::AIPlayer(Game* game, int disk_num)
@@ -19,7 +19,7 @@ AIPlayer::AIPlayer(Game* game, int disk_num)
     this->opponent_disk_num = 1;
   }
 
-  std::cout << "An AI has been created..." << std::endl;
+  // std::cout << "An AI has been created..." << std::endl;
 }
 
 bool AIPlayer::take_turn()
@@ -30,8 +30,8 @@ bool AIPlayer::take_turn()
   std::pair<int, int> beta(1000000, 0);
   std::pair<int, int> chosen_column = minimax(this->game->get_game_board(), 4, true, alpha, beta);
 
-  std::cout << "Board evaluation score: " << chosen_column.first << std::endl;
-  std::cout << "Chosen column: " <<  chosen_column.second << std::endl;
+  // std::cout << "Board evaluation score: " << chosen_column.first << std::endl;
+  std::cout << "AI column chosen: " <<  chosen_column.second << std::endl;
   std::cout << "Number of boards explored: " << this->num_boards_explored << std::endl;
   // std::cout << "Number of minimax calls: " << this->num_minimax_calls << std::endl;
 
@@ -354,7 +354,7 @@ std::pair<int, int> AIPlayer::max(std::pair<int, int> num_1, std::pair<int, int>
 
 void AIPlayer::print_moves_taken()
 {
-  std::cout << "AI moves taken = [";
+  std::cout << "AI's chosen columns = [";
 
   for(long unsigned int i = 0; i < this->moves_taken.size(); ++i)
   {

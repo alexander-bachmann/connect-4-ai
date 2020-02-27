@@ -3,12 +3,12 @@
 
 HumanPlayer::HumanPlayer()
 {
-  std::cout << "A human has been born..." << std::endl;
+  // std::cout << "A human has been born..." << std::endl;
 }
 
 HumanPlayer::HumanPlayer(Game* game)
 {
-  std::cout << "A human has been born..." << std::endl;
+  // std::cout << "A human has been born..." << std::endl;
   this->game = game;
 }
 
@@ -28,7 +28,7 @@ bool HumanPlayer::take_turn()
 
 void HumanPlayer::print_moves_taken()
 {
-  std::cout << "Human moves taken = [";
+  std::cout << "Human's chosen columns = [";
 
   for(long unsigned int i = 0; i < this->moves_taken.size(); ++i)
   {
