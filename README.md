@@ -12,7 +12,7 @@ make
 ./connectM n m
 ```
 
-#### this command would create a 7 x 7 game board and 4 disks would need to appear contiguously to win
+#### this command will create a 7 x 7 game board and 4 disks will need to appear contiguously to win
 ```
 ./connectM 7 4
 ```
