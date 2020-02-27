@@ -98,7 +98,7 @@ std::pair<int, int> AIPlayer::minimax(std::vector<std::vector<int>> game_board, 
 
   if(maximizing_player == true) //is AI's turn to move
   {
-    std::pair<int, int> max_eval(-1000000, 0);
+    // std::pair<int, int> max_eval(-1000000, 0);
 
     for(int i = 1; i <= this->game->get_n(); ++i)
     {
@@ -112,7 +112,7 @@ std::pair<int, int> AIPlayer::minimax(std::vector<std::vector<int>> game_board, 
         }
 
         eval = minimax(game_board, depth - 1, false, alpha, beta);
-        max_eval = max(max_eval, eval);
+        // max_eval = max(max_eval, eval);
         alpha = max(alpha, eval);
         this->game->pop_from_column(i);
 
@@ -123,11 +123,12 @@ std::pair<int, int> AIPlayer::minimax(std::vector<std::vector<int>> game_board, 
       }
     }
 
-    return max_eval;
+    return alpha;
+    // return max_eval;
   }
   else //is Human's turn to move
   {
-    std::pair<int, int> min_eval(1000000, 0);
+    // std::pair<int, int> min_eval(1000000, 0);
 
     for(int i = 1; i <= this->game->get_n(); ++i)
     {
@@ -136,7 +137,7 @@ std::pair<int, int> AIPlayer::minimax(std::vector<std::vector<int>> game_board, 
       if(successful_add == true)
       {
         eval = minimax(game_board, depth - 1, true, alpha, beta);
-        min_eval = min(min_eval, eval);
+        // min_eval = min(min_eval, eval);
         beta = min(beta, eval);
         this->game->pop_from_column(i);
 
@@ -147,7 +148,8 @@ std::pair<int, int> AIPlayer::minimax(std::vector<std::vector<int>> game_board, 
       }
     }
 
-    return min_eval;
+    return beta;
+    // return min_eval;
   }
 }
 

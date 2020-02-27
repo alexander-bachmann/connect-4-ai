@@ -33,13 +33,13 @@ class AIPlayer
     int opponent_disk_num;
     int current_first_turn_branch = 0;
     int current_column = 0;
-    int max_col = 0;
-    int min_col = 0;
+    // int max_col = 0;
+    // int min_col = 0;
     int num_minimax_calls = 0;
     int num_boards_explored = 0;
     std::vector<int> moves_taken;
 
-    std::vector<std::pair<int, int>> heuristic_branch_pair_vector;
+    // std::vector<std::pair<int, int>> heuristic_branch_pair_vector;
 };
 
 #endif
