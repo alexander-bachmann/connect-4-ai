@@ -6,7 +6,7 @@ make
 ```
 
 ## Run code
-#### n = board dimension
+#### n = board dimension size
 #### m = number of contiguous disks needed for a win
 ```
 ./connectM n m
