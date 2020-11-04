@@ -3,7 +3,7 @@
 ## About
 Command-line interface Connect 4 game with ability to change number of contiguous disks and board size. Using the Minimax and Alpha-beta pruning algorithms, the AI decides optimal moves after exploring hundreds of possible board positions several turns into the future.
 
-For more detail, feel free to read the [report](https://github.com/alexander-bachmann/connect-4-ai/blob/master/Connect_M_Report.pdf)
+For more detail, the report can be found [here](https://github.com/alexander-bachmann/connect-4-ai/blob/master/Connect_M_Report.pdf)
 
 ## Compilation and Execution
 ```
