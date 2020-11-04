@@ -5,12 +5,12 @@ Command-line interface Connect 4 game with ability to change number of contiguou
 
 For more detail, feel free to read the [report](https://github.com/alexander-bachmann/connect-4-ai/blob/master/Connect_M_Report.pdf)
 
-## Compilation and Execution commands
+## Compilation and Execution
 ```
 make
 ./connectM n m
 ```
-n = board dimension size
+n = board dimension size </br>
 m = number of contiguous disks required for a win
 
 ---
